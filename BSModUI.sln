@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuddenDeath", "SuddenDeath\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSModUI", "BSModUI\BSModUI.csproj", "{66663F3A-4964-4B3D-AEB0-7E67823FFEC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hidden", "Hidden\Hidden.csproj", "{66ED5C66-FBF2-4844-99ED-76765932475E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{66663F3A-4964-4B3D-AEB0-7E67823FFEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66663F3A-4964-4B3D-AEB0-7E67823FFEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66663F3A-4964-4B3D-AEB0-7E67823FFEC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66ED5C66-FBF2-4844-99ED-76765932475E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66ED5C66-FBF2-4844-99ED-76765932475E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66ED5C66-FBF2-4844-99ED-76765932475E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66ED5C66-FBF2-4844-99ED-76765932475E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

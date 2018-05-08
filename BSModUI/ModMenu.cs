@@ -15,7 +15,6 @@ namespace BSModUI
         public static ModMenu Instance;
         private MainMenuViewController _mainMenuViewController;
         private VRUIScreen _curRightScreen;
-        private Vector3 zeroVector;
 
         private List<Button> _buttons;
 
