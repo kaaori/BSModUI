@@ -82,6 +82,7 @@ namespace BSModUI
         {
             // TODO: Actually make this open/unhide a menu & any implemented buttons.
             Console.WriteLine("Click handled");
+            //_mainMenuViewController.PresentModalViewController(this._simpleDialogPromptViewController, null, false);
         }
 
         private void SetupModMenuScreen()
