@@ -12,10 +12,10 @@ namespace BSModUI
      * ModUI Framework implementation ideas:
      *
      * - Mod references BSModUI.dll
-     * - Mod inherits ModGui baseclass
-     * - Mod 
-     *
-     *
+     * - Inherits ModGui baseclass
+     * - Calls Setup UI base function with name and ver
+     * - Toggle is added by default with override for custom page
+     * - 
      */
 
     class ModMenuViewController : VRUIViewController
