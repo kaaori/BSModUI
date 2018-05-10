@@ -44,7 +44,7 @@ namespace BSModUI
         {
             if (level == 1)
             {
-                ModMenu.OnLoad();
+                ModMenuUi.OnLoad();
             }
         }
 

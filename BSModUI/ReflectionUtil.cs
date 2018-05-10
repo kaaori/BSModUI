@@ -21,6 +21,13 @@ namespace BSModUI
             return (T) ((object) value);
         }
 
+        public static object GetPrivateField(Type type, object obj, string fieldName)
+        {
+            var field = obj.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
+            var value = field.GetValue(obj);
+            return ((object)value);
+        }
+
         public static void InvokePrivateMethod(object obj, string methodName, object[] methodParams)
         {
             MethodInfo method = obj.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);

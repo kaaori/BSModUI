@@ -72,10 +72,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomViewController.cs" />
     <Compile Include="ModGui.cs" />
     <Compile Include="SceneDumper.cs" />
-    <Compile Include="ModMenu.cs" />
+    <Compile Include="ModMenuUi.cs" />
     <Compile Include="ModMenuViewController.cs" />
     <Compile Include="ModMenuPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

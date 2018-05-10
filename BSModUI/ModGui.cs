@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VRUI;
 
 namespace BSModUI
 {
@@ -10,7 +11,7 @@ namespace BSModUI
         /**
          * Mod extends ModGui with name/ver
          *
-         * Setup adds new button to ModMenu UI
+         * Setup adds new button to ModMenuUi UI
          * - 2 modes:
          *
          *      - Simple on/off toggle for mod
@@ -31,7 +32,7 @@ namespace BSModUI
         }
 
         // Override for "advanced mode"
-        public void SetupUi(string modName, string pluginVersion, CustomViewController customView)
+        public void SetupUi(string modName, string pluginVersion, VRUIViewController customView)
         {
 
         }
