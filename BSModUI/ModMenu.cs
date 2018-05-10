@@ -12,85 +12,98 @@ namespace BSModUI
 {
     class ModMenu : MonoBehaviour
     {
-        static RectTransform rightpos;
-        static VRUIViewController rightscreen;
-        static ModMenu Instance;
+        static RectTransform _rightPos;
+        static VRUIViewController _rightScreen;
+        static ModMenu _instance;
+
         private MainMenuViewController _mainMenuViewController;
-        public ModMenuViewController modmenucontroller;
-        private SongListViewController songlist;
-         private Button _button;
-        public Button backarrow; 
-       public static void OnLoad()
+        private ModMenuViewController _modMenuController;
+
+        //private SongListViewController _songlist;
+
+        private Button _cogWheelButton;
+        private Button _backArrow;
+
+        public static void OnLoad()
         {
-            Console.WriteLine("thinking a bit");
-
-            if (ModMenu.Instance != null)
+            if (ModMenu._instance != null)
             {
-                Console.WriteLine("thinking");
-
                 return;
             }
-            new GameObject("modmenu").AddComponent<ModMenu>();
-            Console.WriteLine("thinking hard");
 
+            new GameObject("modmenu").AddComponent<ModMenu>();
+            Utils.Log("Modmenu GameObj instanced");
         }
+
         void Awake()
         {
-            Console.WriteLine("thinking 2 hard");
-
-            ModMenu.Instance = this;
+            Utils.Log("Mod Menu Awake");   
+            
+            ModMenu._instance = this;
             _mainMenuViewController = Resources.FindObjectsOfTypeAll<MainMenuViewController>().FirstOrDefault();
-            var buttons = UnityEngine.Object.FindObjectsOfType<Button>().ToList();
-            _button = buttons.FirstOrDefault(x => x.name.ToLowerInvariant() == "settingsbutton");
-           var backarrows = Resources.FindObjectsOfTypeAll<Button>();
-           backarrow = backarrows.FirstOrDefault(x => x.name == "BackArrowButton");
-            songlist = Resources.FindObjectsOfTypeAll<SongListViewController>().FirstOrDefault();
 
-            addinitbutton();
+            // Get all buttons and filter to just settings button
+            var buttons = UnityEngine.Object.FindObjectsOfType<Button>().ToList();
+            _cogWheelButton = buttons.FirstOrDefault(x => x.name == "SettingsButton");
+
+            // Get all buttons and filter to just back arrow modal button
+            var backarrows = Resources.FindObjectsOfTypeAll<Button>();
+            _backArrow = backarrows.FirstOrDefault(x => x.name == "BackArrowButton");
+
+            // Get song list (For the saver plugin? Unused?)
+            // _songlist = Resources.FindObjectsOfTypeAll<SongListViewController>().FirstOrDefault();
+
+            AddModMenuButton();
         }
-        private void addinitbutton()
+
+        private void AddModMenuButton()
         {
-            Console.WriteLine("MEGA THINK");
-            
+            Utils.Log("Default button added");
             _mainMenuViewController = FindObjectOfType<MainMenuViewController>();
-            rightscreen = ReflectionUtil.GetPrivateField<VRUIViewController>(_mainMenuViewController, "_releaseInfoViewController");
-            rightpos = rightscreen.gameObject.transform as RectTransform;
-            
-            Button modmenubutton = CreateButton(rightpos);
+            _rightScreen =
+                ReflectionUtil.GetPrivateField<VRUIViewController>(_mainMenuViewController,
+                    "_releaseInfoViewController");
+            _rightPos = _rightScreen.gameObject.transform as RectTransform;
+
+            var modmenubutton = CreateButton(_rightPos);
+            if (modmenubutton == null)
+            {
+                Utils.Log("Mod menu button returned as null", Utils.Severity.Error);
+                return;
+            }
             try
             {
-               // (modmenubutton.transform as RectTransform).anchoredPosition = new Vector2(30f, 7f);
-               // (modmenubutton.transform as RectTransform).sizeDelta = new Vector2(28f, 10f);
+                // (modmenubutton.transform as RectTransform).anchoredPosition = new Vector2(30f, 7f);
+                // (modmenubutton.transform as RectTransform).sizeDelta = new Vector2(28f, 10f);
 
+                // Change button text and add listener
                 modmenubutton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Mod Menu";
-                modmenubutton.onClick.AddListener(delegate ()
+                modmenubutton.onClick.AddListener(delegate()
                 {
                     try
                     {
-                        Console.WriteLine("button press");
-                        if (modmenucontroller == null)
+                        Utils.Log("Mod menu pressed");
+                        if (_modMenuController == null)
                         {
-
-                            modmenucontroller = CreateViewController();
-
+                            _modMenuController = CreateViewController();
                         }
-                        rightscreen.PresentModalViewController(modmenucontroller, null, false);
+                        _rightScreen.PresentModalViewController(_modMenuController, null);
                     }
-                    catch(Exception err)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine("ERROR: " + err);
+                        Utils.Log(ex.Message, Utils.Severity.Error);
                     }
                 });
-            } catch(Exception err)
+            }
+            catch (Exception ex)
             {
-                Console.WriteLine("ERROR: " + err);
+                Utils.Log(ex.Message, Utils.Severity.Error);
             }
         }
 
         public ModMenuViewController CreateViewController()
         {
-
-            ModMenuViewController vc = new GameObject().AddComponent<ModMenuViewController>();
+            var vc = new GameObject().AddComponent<ModMenuViewController>();
 
             vc.rectTransform.anchorMin = new Vector2(0f, 0f);
             vc.rectTransform.anchorMax = new Vector2(1f, 1f);
@@ -99,40 +112,53 @@ namespace BSModUI
 
             return vc;
         }
+
         public Button CreateButton(RectTransform parent)
         {
-            if(_button == null)
+            try
             {
-                Console.WriteLine("Failed to create button ");
-                return null;
-                
+                if (_cogWheelButton == null)
+                {
+                    Utils.Log("Failed to create button", Utils.Severity.Error);
+                    return null;
+                }
+
+                // Create temporary button to return as new button
+                var tmp = Instantiate(_cogWheelButton, parent, false);
+                DestroyImmediate(tmp.GetComponent<GameEventOnUIButtonClick>());
+                tmp.onClick = new Button.ButtonClickedEvent();
+                return tmp;
             }
-            Button tmp = Instantiate(_button, parent, false);
-            DestroyImmediate(tmp.GetComponent<GameEventOnUIButtonClick>());
-            tmp.onClick = new Button.ButtonClickedEvent();
-            return tmp;
+            catch (Exception ex)
+            {
+                Utils.Log(ex.Message, Utils.Severity.Error);
+                return null;
+            }
         }
+
         public Button CreateBackButton(RectTransform parent)
         {
-            if(backarrow == null)
+            if (_backArrow == null)
             {
                 Console.WriteLine("Failed to create back button ");
                 return null;
             }
-            Button tmp = Instantiate(backarrow, parent, false);
+
+            var tmp = Instantiate(_backArrow, parent, false);
             DestroyImmediate(tmp.GetComponent<GameEventOnUIButtonClick>());
             tmp.onClick = new Button.ButtonClickedEvent();
             return tmp;
         }
-      /*  public SongListViewController CreateList(RectTransform parent)
-        {
-            if(songlist == null)
-            {
-                Console.WriteLine("Failed to create list");
-                return null;
-            }
-            SongListViewController tmp = Instantiate(songlist, parent, false);
-            return tmp;
-        } */
+
+        /*  public SongListViewController CreateList(RectTransform parent)
+          {
+              if(songlist == null)
+              {
+                  Console.WriteLine("Failed to create list");
+                  return null;
+              }
+              SongListViewController tmp = Instantiate(songlist, parent, false);
+              return tmp;
+          } */
     }
 }

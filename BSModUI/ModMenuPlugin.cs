@@ -8,7 +8,7 @@ using VRUI;
 
 namespace BSModUI
 {
-    public class ModUI : IEnhancedPlugin
+    public class ModMenuPlugin : IEnhancedPlugin
     {
         public string Name => "Beat Saber Mod UI";
 
@@ -50,6 +50,7 @@ namespace BSModUI
 
         public void OnUpdate()
         {
+            // Debug util
             if(Input.GetKeyDown(KeyCode.Insert))
             {
                 SceneDumper.DumpScene();
