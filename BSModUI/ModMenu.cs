@@ -12,87 +12,127 @@ namespace BSModUI
 {
     class ModMenu : MonoBehaviour
     {
-        public static ModMenu Instance;
+        static RectTransform rightpos;
+        static VRUIViewController rightscreen;
+        static ModMenu Instance;
         private MainMenuViewController _mainMenuViewController;
-        private VRUIScreen _curRightScreen;
-
-        private List<Button> _buttons;
-
-        public static void OnLoad()
+        public ModMenuViewController modmenucontroller;
+        private SongListViewController songlist;
+         private Button _button;
+        public Button backarrow; 
+       public static void OnLoad()
         {
-            if (Instance != null)
+            Console.WriteLine("thinking a bit");
+
+            if (ModMenu.Instance != null)
             {
+                Console.WriteLine("thinking");
+
                 return;
             }
-            new GameObject("Mod Menu").AddComponent<ModMenu>();
-        }
+            new GameObject("modmenu").AddComponent<ModMenu>();
+            Console.WriteLine("thinking hard");
 
-        private void Awake()
+        }
+        void Awake()
         {
-            Instance = this;
+            Console.WriteLine("thinking 2 hard");
+
+            ModMenu.Instance = this;
             _mainMenuViewController = Resources.FindObjectsOfTypeAll<MainMenuViewController>().FirstOrDefault();
-            _buttons = UnityEngine.Object.FindObjectsOfType<Button>().ToList();
+            var buttons = UnityEngine.Object.FindObjectsOfType<Button>().ToList();
+            _button = buttons.FirstOrDefault(x => x.name.ToLowerInvariant() == "settingsbutton");
+           var backarrows = Resources.FindObjectsOfTypeAll<Button>();
+           backarrow = backarrows.FirstOrDefault(x => x.name == "BackArrowButton");
+            songlist = Resources.FindObjectsOfTypeAll<SongListViewController>().FirstOrDefault();
 
-            if (_mainMenuViewController == null)
+            addinitbutton();
+        }
+        private void addinitbutton()
+        {
+            Console.WriteLine("MEGA THINK");
+            
+            _mainMenuViewController = FindObjectOfType<MainMenuViewController>();
+            rightscreen = ReflectionUtil.GetPrivateField<VRUIViewController>(_mainMenuViewController, "_releaseInfoViewController");
+            rightpos = rightscreen.gameObject.transform as RectTransform;
+            
+            Button modmenubutton = CreateButton(rightpos);
+            try
             {
-                Console.WriteLine("Could not find menu view controller");
-            }
-            else
+               // (modmenubutton.transform as RectTransform).anchoredPosition = new Vector2(30f, 7f);
+               // (modmenubutton.transform as RectTransform).sizeDelta = new Vector2(28f, 10f);
+
+                modmenubutton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Mod Menu";
+                modmenubutton.onClick.AddListener(delegate ()
+                {
+                    try
+                    {
+                        Console.WriteLine("button press");
+                        if (modmenucontroller == null)
+                        {
+
+                            modmenucontroller = CreateViewController();
+
+                        }
+                        rightscreen.PresentModalViewController(modmenucontroller, null, false);
+                    }
+                    catch(Exception err)
+                    {
+                        Console.WriteLine("ERROR: " + err);
+                    }
+                });
+            } catch(Exception err)
             {
-                SetupModMenuScreen();
-                var modMenuButton = AddButton("ModMenuButton", "Mods", ModMenuBtnOnClick);
-                var test2Button = AddButton("TestButton", "Test", TestOnClick, new Vector3(1f,0f,0f));
+                Console.WriteLine("ERROR: " + err);
             }
         }
 
-        private Button AddButton(string buttonName, string buttonText, UnityAction call)
+        public ModMenuViewController CreateViewController()
         {
-            // Copy tutorial button to new instance
-            var settingsButton = _buttons.FirstOrDefault(x => x.name.ToLowerInvariant() == "settingsbutton");
-            var newButton = Instantiate(settingsButton, _curRightScreen.transform);
-            newButton.name = buttonName;
 
-            // Destroy tutorial event handler on new button
-            var eventOnClick = newButton.GetComponent<GameEventOnUIButtonClick>();
-            Destroy(eventOnClick);
+            ModMenuViewController vc = new GameObject().AddComponent<ModMenuViewController>();
 
-            // Change text and set up listener
-            newButton.GetComponentInChildren<TMP_Text>().text = buttonText;
-            newButton.onClick = new Button.ButtonClickedEvent();
-            newButton.onClick.AddListener(call);
-            return newButton;
+            vc.rectTransform.anchorMin = new Vector2(0f, 0f);
+            vc.rectTransform.anchorMax = new Vector2(1f, 1f);
+            vc.rectTransform.sizeDelta = new Vector2(0f, 0f);
+            vc.rectTransform.anchoredPosition = new Vector2(0f, 0f);
+
+            return vc;
         }
-
-        // Overload to allow for button transform offsetting
-        private Button AddButton(string buttonName, string buttonText, UnityAction call, Vector3 offset)
+        public Button CreateButton(RectTransform parent)
         {
-            var newButton = AddButton(buttonName, buttonText, call);
-            var pos = newButton.transform.position;
-            pos -= offset;
-            newButton.transform.position = pos;
-            return newButton;
+            if(_button == null)
+            {
+                Console.WriteLine("Failed to create button ");
+                return null;
+                
+            }
+            Button tmp = Instantiate(_button, parent, false);
+            DestroyImmediate(tmp.GetComponent<GameEventOnUIButtonClick>());
+            tmp.onClick = new Button.ButtonClickedEvent();
+            return tmp;
         }
-
-        private void TestOnClick()
+        public Button CreateBackButton(RectTransform parent)
         {
-            Console.WriteLine("Wow it did a thing");
+            if(backarrow == null)
+            {
+                Console.WriteLine("Failed to create back button ");
+                return null;
+            }
+            Button tmp = Instantiate(backarrow, parent, false);
+            DestroyImmediate(tmp.GetComponent<GameEventOnUIButtonClick>());
+            tmp.onClick = new Button.ButtonClickedEvent();
+            return tmp;
         }
-
-        private void ModMenuBtnOnClick()
+      /*  public SongListViewController CreateList(RectTransform parent)
         {
-            // TODO: Actually make this open/unhide a menu & any implemented buttons.
-            Console.WriteLine("Click handled");
-            //_mainMenuViewController.PresentModalViewController(this._simpleDialogPromptViewController, null, false);
-        }
-
-        private void SetupModMenuScreen()
-        {
-            Console.WriteLine("Screen system found, Right screen: " + _mainMenuViewController.screen.screenSystem.rightScreen.name);
-            _curRightScreen = _mainMenuViewController.screen.screenSystem.rightScreen;
-        }
-
-        private void OnLateUpdate()
-        {
-        }
+            if(songlist == null)
+            {
+                Console.WriteLine("Failed to create list");
+                return null;
+            }
+            SongListViewController tmp = Instantiate(songlist, parent, false);
+            return tmp;
+        } */
     }
 }

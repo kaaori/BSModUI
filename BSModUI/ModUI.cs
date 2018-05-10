@@ -50,6 +50,10 @@ namespace BSModUI
 
         public void OnUpdate()
         {
+            if(Input.GetKeyDown(KeyCode.Insert))
+            {
+                SceneDumper.DumpScene();
+            }
         }
 
         public void OnFixedUpdate()
