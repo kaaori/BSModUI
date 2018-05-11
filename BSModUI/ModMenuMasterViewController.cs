@@ -57,6 +57,7 @@ namespace BSModUI
 
         public ModsListViewController _modsListViewController;
         public SongDetailViewController _modDetailsViewController;
+        public bool _modDetailsPushed = false;
 
         private ModMenuMasterViewController _modList;
 
@@ -99,6 +100,7 @@ namespace BSModUI
 
         protected override void DidDeactivate()
         {
+            _modDetailsPushed = false;
         }
 
         

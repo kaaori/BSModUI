@@ -169,11 +169,23 @@ namespace BSModUI
                     SetModDetailsData(_parentViewController._modDetailsViewController, row);
 
                     _parentViewController.PushViewController(_parentViewController._modDetailsViewController, false);
+
+                    _parentViewController._modDetailsPushed = true;
                 }
                 else
                 {
-                    SetModDetailsData(_parentViewController._modDetailsViewController, row);
+                    if (_parentViewController._modDetailsPushed)
+                    {
+                        SetModDetailsData(_parentViewController._modDetailsViewController, row);
+                    }
+                    else
+                    {
+                        SetModDetailsData(_parentViewController._modDetailsViewController, row);
+                        _parentViewController.PushViewController(_parentViewController._modDetailsViewController, false);
 
+                        _parentViewController._modDetailsPushed = true;
+                    }
+                    
                 }
             }
             catch (Exception e)
