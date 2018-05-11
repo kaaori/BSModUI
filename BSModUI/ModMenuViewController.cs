@@ -54,11 +54,11 @@ namespace BSModUI
 
         private TextMeshProUGUI _pageText;
 
-        private Button _backToMenuButton;
+       // private Button _backToMenuButton;
 
         private Button _pageUpButton;
         private Button _pageDownButton;
-
+        private Button _backbutton;
         private List<ModSelection> _modSelections = new List<ModSelection>();
 
         private List<Mod> _mods = new List<Mod>();
@@ -79,21 +79,29 @@ namespace BSModUI
             _modMenuUi = FindObjectOfType<ModMenuUi>();
             try
             {
-                _backToMenuButton = _modMenuUi.CreateButton(rectTransform, "SettingsButton");
-                if (_backToMenuButton == null)
+                //  _backToMenuButton = _modMenuUi.CreateButton(rectTransform, "SettingsButton");
+                //   if (_backToMenuButton == null)
+                //  {
+                //        Utils.Log("Universe collapsing, abort", Utils.Severity.Error);
+                //         return;
+                //     }
+                _backbutton = _modMenuUi.CreateBackButton(rectTransform);
+                (_backbutton.transform as RectTransform).anchorMin = new Vector2(0, 0);
+                (_backbutton.transform as RectTransform).anchorMin = new Vector2(0, 0);
+                (_backbutton.transform as RectTransform).anchoredPosition = new Vector2(0, 0.5f);
+                _backbutton.onClick.AddListener(delegate ()
                 {
-                    Utils.Log("Universe collapsing, abort", Utils.Severity.Error);
-                    return;
-                }
-
+                    this.DismissModalViewController(null, false);
+                });
                 Utils.Log("View Controller activated");
                 try
                 {
+
                     // Direct casts for MaXiMuM safety
-                    ((RectTransform)_backToMenuButton.transform).anchorMin = new Vector2(0.5f, 1f);
-                    ((RectTransform)_backToMenuButton.transform).anchorMax = new Vector2(0.5f, 1f);
-                    ((RectTransform)_backToMenuButton.transform).anchoredPosition = new Vector2(0f, 10f);
-                    _backToMenuButton.interactable = true;
+                  //  ((RectTransform)_backToMenuButton.transform).anchorMin = new Vector2(0.5f, 1f);
+                //    ((RectTransform)_backToMenuButton.transform).anchorMax = new Vector2(0.5f, 1f);
+            //        ((RectTransform)_backToMenuButton.transform).anchoredPosition = new Vector2(0f, 10f);
+                //    _backToMenuButton.interactable = true;
 
                     if (_pageDownButton == null)
                     {
@@ -133,10 +141,10 @@ namespace BSModUI
                 }
 
                 // Back to release info and cleanup
-                _backToMenuButton.onClick.AddListener(delegate
+                /*_backToMenuButton.onClick.AddListener(delegate
                 {
                     DismissModalViewController(null);
-                });
+                }); */
                 _songListTableCellInstance = Resources.FindObjectsOfTypeAll<SongListTableCell>().First(x => (x.name == "SongListTableCell"));
 
                 LoadMods();
@@ -169,7 +177,7 @@ namespace BSModUI
                 }
                 if (_pageText == null)
                 {
-                    _pageText = CreateTMPText("Plugins", new Vector2(-10f, -10f));
+                    _pageText = CreateTMPText("Plugins", new Vector2(0f, 1f));
                     _pageText.fontSize = 8;
                 }
                 RefreshScreen();

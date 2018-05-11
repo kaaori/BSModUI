@@ -26,7 +26,7 @@ namespace BSModUI
         private Button _buttonInstance;
         private Button _cogWheelButtonInstance;
         private Button _backButtonInstance;
-
+        
         //private Button _backArrow;
         //private Button _forwardArrow;
 
@@ -67,7 +67,7 @@ namespace BSModUI
                 _cogWheelButtonInstance = allButtons.FirstOrDefault(x => x.name == "SettingsButton");
                 _downArrowBtn = allButtons.First(x => x.name == "PageDownButton");
                 _upArrowBtn = allButtons.First(x => x.name == "PageUpButton");
-
+                _backButtonInstance = allButtons.First(x=> x.name == "BackArrowButton");
                 _mainMenuViewController = Resources.FindObjectsOfTypeAll<MainMenuViewController>().First();
                 _mainMenuRectTransform = (RectTransform) _buttonInstance.transform.parent;
 
@@ -246,6 +246,19 @@ namespace BSModUI
                 button.GetComponentsInChildren<UnityEngine.UI.Image>()[0].sprite = background;
             }
 
+        }
+        public Button CreateBackButton(RectTransform parent)
+        {
+            if (_upArrowBtn == null)
+            {
+                Utils.Log("Failed to create next button", Utils.Severity.Error);
+                return null;
+            }
+
+            var tmp = Instantiate(_backButtonInstance, parent, false);
+            DestroyImmediate(tmp.GetComponent<GameEventOnUIButtonClick>());
+            tmp.onClick = new Button.ButtonClickedEvent();
+            return tmp;
         }
         /*  public SongListViewController CreateList(RectTransform parent)
           {
