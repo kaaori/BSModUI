@@ -21,14 +21,11 @@ namespace BSModUI
         private MainMenuViewController _mainMenuViewController;
 
         // Custom view controller
-        private ModMenuViewController _modMenuController;
+        private ModMenuMasterViewController _modMenuController;
 
         private Button _buttonInstance;
         private Button _cogWheelButtonInstance;
         private Button _backButtonInstance;
-        
-        //private Button _backArrow;
-        //private Button _forwardArrow;
 
         private Button _upArrowBtn;
         private Button _downArrowBtn;
@@ -47,14 +44,13 @@ namespace BSModUI
 
         void Awake()
         {
-            Utils.Log("Mod Menu Awake");   
-            
-            ModMenuUi._instance = this;
-            UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+            Utils.Log("Mod Menu Awake");
+
+            _instance = this;
+            //DontDestroyOnLoad(gameObject);
 
             foreach (Sprite sprite in Resources.FindObjectsOfTypeAll<Sprite>())
             {
-                //Utils.Log(sprite.name);
                 Icons.Add(sprite);
             }
 
@@ -98,11 +94,8 @@ namespace BSModUI
                     Utils.Log("Mod menu button returned as null", Utils.Severity.Error);
                     return;
                 }
-                // (modmenubutton.transform as RectTransform).anchoredPosition = new Vector2(30f, 7f);
-                // (modmenubutton.transform as RectTransform).sizeDelta = new Vector2(28f, 10f);
 
                 // Change button text and add listener
-                //modMenuButton.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Mod Menu";
                 modMenuButton.onClick.AddListener(delegate
                 {
                     try
@@ -110,7 +103,7 @@ namespace BSModUI
                         Utils.Log("Mod menu pressed");
                         if (_modMenuController == null)
                         {
-                            _modMenuController = CreateViewController();
+                            _modMenuController = CreateViewController<ModMenuMasterViewController>();
                         }
                         _rightScreen.PresentModalViewController(_modMenuController, null);
                         Utils.Log("Mod menu setup finished");
@@ -129,9 +122,9 @@ namespace BSModUI
             }
         }
 
-        public ModMenuViewController CreateViewController()
+        public T CreateViewController<T>() where T : VRUIViewController
         {
-            var vc = new GameObject("CustomViewController").AddComponent<ModMenuViewController>();
+            var vc = new GameObject("CustomViewController").AddComponent<T>();
 
             vc.rectTransform.anchorMin = new Vector2(0f, 0f);
             vc.rectTransform.anchorMax = new Vector2(1f, 1f);
@@ -218,6 +211,23 @@ namespace BSModUI
             return tmp;
         }
 
+        // ReSharper disable once InconsistentNaming
+        public TextMeshProUGUI CreateTMPText(RectTransform parent, string text, Vector2 position)
+        {
+            var textMesh = new GameObject().AddComponent<TextMeshProUGUI>();
+            textMesh.rectTransform.SetParent(parent, false);
+            textMesh.text = text;
+            textMesh.fontSize = 4;
+            textMesh.color = Color.white;
+            textMesh.font = Resources.Load<TMP_FontAsset>("Teko-Medium SDF No Glow");
+            textMesh.rectTransform.anchorMin = new Vector2(0.5f, 1f);
+            textMesh.rectTransform.anchorMax = new Vector2(1f, 1f);
+            textMesh.rectTransform.sizeDelta = new Vector2(60f, 10f);
+            textMesh.rectTransform.anchoredPosition = position;
+
+            return textMesh;
+        }
+
         public void SetButtonText(ref Button button, string text)
         {
             if (button.GetComponentInChildren<TextMeshProUGUI>() != null)
@@ -260,15 +270,6 @@ namespace BSModUI
             tmp.onClick = new Button.ButtonClickedEvent();
             return tmp;
         }
-        /*  public SongListViewController CreateList(RectTransform parent)
-          {
-              if(songlist == null)
-              {
-                  Console.WriteLine("Failed to create list");
-                  return null;
-              }
-              SongListViewController tmp = Instantiate(songlist, parent, false);
-              return tmp;
-          } */
+
     }
 }
