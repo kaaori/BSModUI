@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IllusionPlugin;
+using BSModUI;
+using VRUI;
 
 namespace TestModWithUi
 {
-    public class TestModWithUiPlugin : BSModUI.ModGui, IPlugin
+    public class TestModWithUiPlugin : ModGui, IPlugin
     {
 
         public void OnApplicationStart()
@@ -33,8 +35,12 @@ namespace TestModWithUi
         {
         }
 
-        public string Name { get; }
-        public string Version { get; }
+        public string Name => "Beat Saber Mod Test";
 
+        public string Version => "0.0.1";
+        public string Author => "Nothing Yet";
+        public string Image => "Nothing Yet";
+        
+        public bool isEnabled => true;
     }
 }

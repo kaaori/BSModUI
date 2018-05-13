@@ -3,38 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VRUI;
+using IllusionPlugin;
 
 namespace BSModUI
 {
-    public class ModGui
+   public interface ModGui : IPlugin
     {
-        /**
-         * Mod extends ModGui with name/ver
-         *
-         * Setup adds new button to ModMenuUi UI
-         * - 2 modes:
-         *
-         *      - Simple on/off toggle for mod
-         *
-         *      - New page with custom view controller ("advanced mode")
-         */
-        public string ModName { get; set; }
-        public string ModVersion { get; set; }
-
-        public ModGui()
-        {
-        }
-
-        // Default for toggle box
-        public void SetupUi(string modName, string pluginVersion)
-        {
-
-        }
-
-        // Override for "advanced mode"
-        public void SetupUi(string modName, string pluginVersion, VRUIViewController customView)
-        {
-
-        }
+        string Author { get; }
+        string Image { get;}
+       // VRUIViewController CustomViewController { get; set; }
+        bool isEnabled { get; }
     }
+   
+    
 }

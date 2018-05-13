@@ -24,6 +24,11 @@ namespace BSModUI
 
         private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
+            
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                ModMenuUi.OnLoad();
+            }
         }
 
         public void OnApplicationQuit()
@@ -42,10 +47,7 @@ namespace BSModUI
 
         public void OnLevelWasInitialized(int level)
         {
-            if (level == 1)
-            {
-                ModMenuUi.OnLoad();
-            }
+ 
         }
 
         public void OnUpdate()
@@ -54,6 +56,9 @@ namespace BSModUI
             if(Input.GetKeyDown(KeyCode.Insert))
             {
                 SceneDumper.DumpScene();
+            }
+            if (Input.GetKeyDown(KeyCode.Home))
+            {
             }
         }
 

@@ -45,6 +45,7 @@ namespace BSModUI
         public string Version { get; set; }
         public string Name { get; set; }
         public string Author { get; set; }
+        public IPlugin GetPlugin{ get; set;}
         // TODO: prop for Image
     }
 
@@ -77,8 +78,11 @@ namespace BSModUI
                 {
                     DismissModalViewController(null, false);
                 });
-
-                _modsListViewController = _modMenuUi.CreateViewController<ModsListViewController>();
+                if (_modsListViewController == null)
+                {
+                    _modsListViewController = _modMenuUi.CreateViewController<ModsListViewController>();
+                }
+                
 
                 _modsListViewController.rectTransform.anchorMin = new Vector2(0.3f, 0f);
                 _modsListViewController.rectTransform.anchorMax = new Vector2(0.7f, 1f);

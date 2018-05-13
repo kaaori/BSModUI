@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using VRUI;
-
+using StreamWriter = System.IO.StreamWriter;
 namespace BSModUI
 {
     class ModMenuUi : MonoBehaviour
@@ -21,7 +21,7 @@ namespace BSModUI
         private MainMenuViewController _mainMenuViewController;
 
         // Custom view controller
-        private ModMenuMasterViewController _modMenuController;
+        private static ModMenuMasterViewController _modMenuController;
 
         private Button _buttonInstance;
         private Button _cogWheelButtonInstance;
@@ -30,14 +30,30 @@ namespace BSModUI
         private Button _upArrowBtn;
         private Button _downArrowBtn;
         private RectTransform _mainMenuRectTransform;
+        void Update()
+        {
+            //DEBUG LINE<
+            if(Input.GetKeyDown(KeyCode.Home))
+            {
 
+               
+                
+            }
+
+     
+            
+        }
         public static void OnLoad()
         {
+
             if (ModMenuUi._instance != null)
             {
                 return;
             }
-
+            if(GameObject.FindObjectOfType<ModMenuUi>() != null)
+            {
+                return;
+            }
             new GameObject("modmenu").AddComponent<ModMenuUi>();
             Utils.Log("Modmenu GameObj instanced");
         }
@@ -107,7 +123,22 @@ namespace BSModUI
                         }
                         _rightScreen.PresentModalViewController(_modMenuController, null);
                         Utils.Log("Mod menu setup finished");
+                        //DELETE POSSIBLE DIFFICULTY TEXT
+                        var modlisttemp = GameObject.FindObjectOfType<ModsListViewController>();
+                        if (modlisttemp != null)
+                        {
+                            var textmeshs = modlisttemp.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
 
+
+                            foreach (TextMeshProUGUI textmesh in textmeshs)
+                            {
+                                Utils.Log(textmesh.rectTransform.parent.gameObject.name);
+                                if (textmesh.rectTransform.parent.name == "DifficultyTableCell(Clone)")
+                                {
+                                    DestroyImmediate(textmesh.rectTransform.parent.gameObject);
+                                }
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {

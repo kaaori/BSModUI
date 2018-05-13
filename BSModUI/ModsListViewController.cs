@@ -19,9 +19,9 @@ namespace BSModUI
         
         private Button _pageUpButton;
         private Button _pageDownButton;
-
+        private Button _toggleButton;
         private List<ModSelection> _modSelections = new List<ModSelection>();
-
+        private TextMeshProUGUI _compatibilitytext;
         private List<Mod> _mods = new List<Mod>();
 
         private TableView _modsTableView;
@@ -29,7 +29,7 @@ namespace BSModUI
 
         protected override void DidActivate()
         {
-
+         
             _modMenuUi = FindObjectOfType<ModMenuUi>();
             _parentViewController = transform.parent.GetComponent<ModMenuMasterViewController>();
 
@@ -90,6 +90,7 @@ namespace BSModUI
                 }
                 foreach (var mod in _mods)
                 {
+                    
                     Utils.Log(mod.Name);
                 }
 
@@ -109,6 +110,7 @@ namespace BSModUI
             {
                 Name = (plugin.Name == null) ? "No name" : plugin.Name,
                 Version = (plugin.Version == null) ? "No version" : plugin.Version,
+                GetPlugin = plugin,
             })
                 .ToList();
             return modsList;
@@ -227,14 +229,35 @@ namespace BSModUI
                 Destroy(_modDetails.GetComponentsInChildren<RectTransform>().Where(x => x.name == "YourStats").First().gameObject);
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Utils.Log(e.ToString(),Utils.Severity.Warning);
+                Utils.Log(e.ToString(), Utils.Severity.Warning);
             }
+            if(_toggleButton == null)
+            {
+                _toggleButton = _modDetails.GetComponentInChildren<Button>();
+            }
+             if(_compatibilitytext == null)
+            {
+                var temp = _modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "DurationText").First();
 
-            Button _toggleButton = _modDetails.GetComponentInChildren<Button>();
-
-            _modMenuUi.SetButtonText(ref _toggleButton, "Disable");
+                _compatibilitytext = _modMenuUi.CreateTMPText(temp.rectTransform, "a", new Vector2(0.7f, 0.5f));
+                //ive tried a lot of stuff im sorry for this horrible solution
+                _compatibilitytext.text = "                   This plugin doesnt work with BSMODUI";
+            }
+            if (_mods[_selectedMod].GetPlugin is ModGui)
+            {
+                Utils.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                //TODO: IMPLEMENT STUFFS
+                _toggleButton.gameObject.SetActive(true);
+                _modMenuUi.SetButtonText(ref _toggleButton, "Disable");
+                _compatibilitytext.gameObject.SetActive(false);
+            } else
+            {
+                _toggleButton.gameObject.SetActive(false);
+                _compatibilitytext.gameObject.SetActive(true);
+            }
+            
 
 
 
