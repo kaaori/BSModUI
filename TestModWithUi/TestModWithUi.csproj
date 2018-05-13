@@ -34,22 +34,14 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="BSModUI">
-      <HintPath>..\BSModUI\bin\Debug\BSModUI.dll</HintPath>
-    </Reference>
-    <Reference Include="IllusionInjector">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\IllusionInjector.dll</HintPath>
-    </Reference>
-    <Reference Include="IllusionPlugin">
-      <HintPath>..\..\..\IllusionPlugin.dll</HintPath>
+    <Reference Include="IllusionPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\IllusionPlugin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="TextMeshPro-1.0.55.2017.1.0b12">
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\TextMeshPro-1.0.55.2017.1.0b12.dll</HintPath>
@@ -76,6 +68,16 @@
   <ItemGroup>
     <Compile Include="TestModWithUiPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BSModUI\BSModUI.csproj">
+      <Project>{66663f3a-4964-4b3d-aeb0-7e67823ffec0}</Project>
+      <Name>BSModUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VersionChecker\VersionChecker.csproj">
+      <Project>{fbca987c-4bec-4d28-8359-f30c49c0b37b}</Project>
+      <Name>VersionChecker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
