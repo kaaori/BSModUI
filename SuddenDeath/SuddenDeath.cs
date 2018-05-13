@@ -1,18 +1,17 @@
-﻿using System;
-using IllusionPlugin;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine.SceneManagement;
+using VersionChecker.Interfaces;
 using Object = UnityEngine.Object;
 
 namespace SuddenDeath
 {
-    public class SuddenDeath : IEnhancedPlugin
+    public class SuddenDeath : IVerCheckPlugin
     {
         public string Name => "Sudden Death Plugin";
-
         public string Version => "0.0.1";
 
+        public string GithubAuthor => "";
+        public string GithubProjName => "";
+        
         public string[] Filter { get; }
 
         private GameEnergyCounter _energyCounter;

@@ -4,15 +4,19 @@ using IllusionPlugin;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using VersionChecker.Interfaces;
 using VRUI;
 
 namespace BSModUI
 {
-    public class ModMenuPlugin : IEnhancedPlugin
+    public class ModMenuPlugin : IVerCheckPlugin
     {
         public string Name => "Beat Saber Mod UI";
 
         public string Version => "0.0.1";
+        
+        public string GithubAuthor => "kaaori";
+        public string GithubProjName => "BSModUI";
 
         public string[] Filter { get; }
 

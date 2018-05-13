@@ -57,5 +57,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionUtil.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VersionChecker\VersionChecker.csproj">
+      <Project>{fbca987c-4bec-4d28-8359-f30c49c0b37b}</Project>
+      <Name>VersionChecker</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

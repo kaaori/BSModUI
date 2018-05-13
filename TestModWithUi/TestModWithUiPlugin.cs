@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IllusionPlugin;
+using VersionChecker.Interfaces;
 
 namespace TestModWithUi
 {
-    public class TestModWithUiPlugin : BSModUI.ModGui, IPlugin
+    public class TestModWithUiPlugin : BSModUI.ModGui, IVerCheckPlugin
     {
 
         public void OnApplicationStart()
@@ -32,9 +32,14 @@ namespace TestModWithUi
         public void OnFixedUpdate()
         {
         }
+        
+        public void OnLateUpdate() {
+        }
 
         public string Name { get; }
         public string Version { get; }
-
+        public string GithubAuthor { get; }
+        public string GithubProjName { get; }
+        public string[] Filter { get; }
     }
 }
