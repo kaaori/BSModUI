@@ -6,8 +6,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using System.IO;
 using VRUI;
 using StreamWriter = System.IO.StreamWriter;
+using System.Collections;
+using IllusionInjector;
+
 namespace BSModUI
 {
     class ModMenuUi : MonoBehaviour
@@ -22,14 +26,14 @@ namespace BSModUI
 
         // Custom view controller
         private static ModMenuMasterViewController _modMenuController;
-
+        public Sprite defaultSprite;
         private Button _buttonInstance;
         private Button _cogWheelButtonInstance;
         private Button _backButtonInstance;
-
         private Button _upArrowBtn;
         private Button _downArrowBtn;
         private RectTransform _mainMenuRectTransform;
+        public List<Mod> mods;
         void Update()
         {
             //DEBUG LINE<
@@ -45,7 +49,7 @@ namespace BSModUI
         }
         public static void OnLoad()
         {
-
+            
             if (ModMenuUi._instance != null)
             {
                 return;
@@ -54,14 +58,65 @@ namespace BSModUI
             {
                 return;
             }
+            
             new GameObject("modmenu").AddComponent<ModMenuUi>();
             Utils.Log("Modmenu GameObj instanced");
         }
+        public List<Mod> GetModsFromIPA()
+        {
+            var modsList = PluginManager.Plugins.Select(plugin => new Mod
+            {
+                Name = (plugin.Name == null) ? "No name" : plugin.Name,
+                Version = (plugin.Version == null) ? "No version" : plugin.Version,
+                GetPlugin = plugin,
+                Thumbnail = defaultSprite
 
+            })
+                .ToList();
+
+
+    
+            return modsList;
+        }
+        void LoadMods()
+        {
+            Utils.Log("Loading mods");
+            try
+            {
+                mods = GetModsFromIPA();
+                if (mods.Count == 0)
+                {
+                    Utils.Log("No mods found");
+                }
+                foreach (var mod in mods)
+                {
+
+                    Utils.Log(mod.Name);
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
+            }
+        }
+         private IEnumerator loadDefaultImg()
+        {
+            var tex = new Texture2D(256, 256, TextureFormat.DXT1, false);
+            using(WWW www = new WWW("file://" + Environment.CurrentDirectory + "/Plugin Content/BSModUI/placeholder.jpg"))
+            {
+                yield return www;
+                defaultSprite = Sprite.Create(tex, new Rect(0, 0, 256, 256), Vector2.one * 0.5f, 100, 1);
+                LoadMods();
+            }
+        }
         void Awake()
         {
             Utils.Log("Mod Menu Awake");
 
+            StartCoroutine("loadDefaultImg");
             _instance = this;
             //DontDestroyOnLoad(gameObject);
 
@@ -132,7 +187,7 @@ namespace BSModUI
 
                             foreach (TextMeshProUGUI textmesh in textmeshs)
                             {
-                                Utils.Log(textmesh.rectTransform.parent.gameObject.name);
+                                
                                 if (textmesh.rectTransform.parent.name == "DifficultyTableCell(Clone)")
                                 {
                                     DestroyImmediate(textmesh.rectTransform.parent.gameObject);

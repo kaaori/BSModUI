@@ -73,48 +73,16 @@ namespace BSModUI
 
             _songListTableCellInstance = Resources.FindObjectsOfTypeAll<SongListTableCell>().First(x => (x.name == "SongListTableCell"));
 
-            LoadMods();
+            _mods = _modMenuUi.mods;
+            RefreshScreen();
 
             base.DidActivate();
         }
 
-        private void LoadMods()
-        {
-            Utils.Log("Loading mods");
-            try
-            {
-                _mods = GetModsFromIPA();
-                if (_mods.Count == 0)
-                {
-                    Utils.Log("No mods found");
-                }
-                foreach (var mod in _mods)
-                {
-                    
-                    Utils.Log(mod.Name);
-                }
-
-                RefreshScreen();
-
-            }
-            catch (Exception ex)
-            {
-                Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
-            }
-        }
+ 
 
         // ReSharper disable once InconsistentNaming
-        public List<Mod> GetModsFromIPA()
-        {
-            var modsList = PluginManager.Plugins.Select(plugin => new Mod
-            {
-                Name = (plugin.Name == null) ? "No name" : plugin.Name,
-                Version = (plugin.Version == null) ? "No version" : plugin.Version,
-                GetPlugin = plugin,
-            })
-                .ToList();
-            return modsList;
-        }
+
 
         public void RefreshScreen()
         {
@@ -247,7 +215,7 @@ namespace BSModUI
             }
             if (_mods[_selectedMod].GetPlugin is ModGui)
             {
-                Utils.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+               
                 //TODO: IMPLEMENT STUFFS
                 _toggleButton.gameObject.SetActive(true);
                 _modMenuUi.SetButtonText(ref _toggleButton, "Disable");
@@ -279,7 +247,7 @@ namespace BSModUI
 
             _tableCell.songName = _mods.ElementAtOrDefault(row).Name;
             _tableCell.author = _mods.ElementAtOrDefault(row).Version;
-
+            _tableCell.coverImage = _mods.ElementAtOrDefault(row).Thumbnail;
             return _tableCell;
         }
 

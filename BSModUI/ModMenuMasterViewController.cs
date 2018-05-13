@@ -40,11 +40,12 @@ namespace BSModUI
         }
     }
 
-    struct Mod
+    public struct Mod
     {
         public string Version { get; set; }
         public string Name { get; set; }
         public string Author { get; set; }
+        public Sprite Thumbnail { get; set; }
         public IPlugin GetPlugin{ get; set;}
         // TODO: prop for Image
     }
