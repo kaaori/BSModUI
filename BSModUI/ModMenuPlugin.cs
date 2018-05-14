@@ -1,5 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BSModUI.Interfaces;
+using BSModUI.Misc;
+using BSModUI.UI;
+using BSModUI.Updater;
+using BSModUI.Updater.Interfaces;
+using BSModUI.Updater.Misc;
 using IllusionPlugin;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,13 +14,19 @@ using VRUI;
 
 namespace BSModUI
 {
-    public class ModMenuPlugin : IEnhancedPlugin
+    public class ModMenuPlugin : IGithubInfoPlugin
     {
         public string Name => "Beat Saber Mod UI";
 
         public string Version => "0.0.1";
 
+        public string Author => "kaaori";
+
+        public string GithubProjName => "BSModUI";
+
         public string[] Filter { get; }
+
+        private IEnumerable<IModGui> Plugins => VersionChecker.Instance.Plugins;
 
         public void OnApplicationStart()
         {
@@ -24,10 +36,10 @@ namespace BSModUI
 
         private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
-            
             if (SceneManager.GetActiveScene().buildIndex == 1)
             {
                 ModMenuUi.OnLoad();
+                VersionChecker.OnLoad();
             }
         }
 
@@ -47,13 +59,13 @@ namespace BSModUI
 
         public void OnLevelWasInitialized(int level)
         {
- 
+
         }
 
         public void OnUpdate()
         {
             // Debug util
-            if(Input.GetKeyDown(KeyCode.Insert))
+            if (Input.GetKeyDown(KeyCode.Insert))
             {
                 SceneDumper.DumpScene();
             }

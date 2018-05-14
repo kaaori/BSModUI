@@ -1,9 +1,5 @@
-﻿using System;
-using IllusionPlugin;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using IllusionPlugin;
 using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
 
 namespace SuddenDeath
 {

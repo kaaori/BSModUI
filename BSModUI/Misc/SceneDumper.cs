@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using StreamWriter = System.IO.StreamWriter;
 
-namespace BSModUI
+namespace BSModUI.Misc
 {
     public static class SceneDumper
     {

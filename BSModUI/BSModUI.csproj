@@ -44,9 +44,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="TextMeshPro-1.0.55.2017.1.0b12">
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\TextMeshPro-1.0.55.2017.1.0b12.dll</HintPath>
@@ -56,6 +54,9 @@
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
@@ -70,17 +71,30 @@
     <Reference Include="UnityEngine.UIModule">
       <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\UnityEngine.UIModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModGui.cs" />
-    <Compile Include="ModsListViewController.cs" />
-    <Compile Include="SceneDumper.cs" />
-    <Compile Include="ModMenuUi.cs" />
-    <Compile Include="ModMenuMasterViewController.cs" />
+    <Compile Include="Interfaces\IModGui.cs" />
+    <Compile Include="Misc\ReflectionUtil.cs" />
+    <Compile Include="Misc\SceneDumper.cs" />
+    <Compile Include="Misc\Utils.cs" />
     <Compile Include="ModMenuPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReflectionUtil.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="UI\ModMenuMasterViewController.cs" />
+    <Compile Include="UI\ModMenuUi.cs" />
+    <Compile Include="UI\ModsListViewController.cs" />
+    <Compile Include="Updater\Interfaces\IGithubInfoPlugin.cs" />
+    <Compile Include="Updater\Misc\CoroutineWithData.cs" />
+    <Compile Include="Updater\Misc\Github\GithubReleasePage.cs" />
+    <Compile Include="Updater\Misc\LatestPluginInfo.cs" />
+    <Compile Include="Updater\Misc\LatestPluginInfoEvent.cs" />
+    <Compile Include="Updater\Misc\LinqExtensions.cs" />
+    <Compile Include="Updater\Misc\ReflectionUtil.cs" />
+    <Compile Include="Updater\Misc\Util.cs" />
+    <Compile Include="Updater\Misc\VCInterop.cs" />
+    <Compile Include="Updater\VersionChecker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

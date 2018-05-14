@@ -1,22 +1,23 @@
-﻿using HMUI;
-using IllusionInjector;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using BSModUI.Interfaces;
+using BSModUI.Misc;
+using HMUI;
+using IllusionInjector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using VRUI;
 
-namespace BSModUI
+namespace BSModUI.UI
 {
     class ModsListViewController : VRUIViewController, TableView.IDataSource
     {
         private new ModMenuMasterViewController _parentViewController;
 
         private ModMenuUi _modMenuUi;
-        
+
         private Button _pageUpButton;
         private Button _pageDownButton;
         private Button _toggleButton;
@@ -29,7 +30,7 @@ namespace BSModUI
 
         protected override void DidActivate()
         {
-         
+
             _modMenuUi = FindObjectOfType<ModMenuUi>();
             _parentViewController = transform.parent.GetComponent<ModMenuMasterViewController>();
 
@@ -90,7 +91,7 @@ namespace BSModUI
                 }
                 foreach (var mod in _mods)
                 {
-                    
+
                     Utils.Log(mod.Name);
                 }
 
@@ -187,7 +188,7 @@ namespace BSModUI
 
                         _parentViewController._modDetailsPushed = true;
                     }
-                    
+
                 }
             }
             catch (Exception e)
@@ -233,11 +234,11 @@ namespace BSModUI
             {
                 Utils.Log(e.ToString(), Utils.Severity.Warning);
             }
-            if(_toggleButton == null)
+            if (_toggleButton == null)
             {
                 _toggleButton = _modDetails.GetComponentInChildren<Button>();
             }
-             if(_compatibilitytext == null)
+            if (_compatibilitytext == null)
             {
                 var temp = _modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "DurationText").First();
 
@@ -245,19 +246,20 @@ namespace BSModUI
                 //ive tried a lot of stuff im sorry for this horrible solution
                 _compatibilitytext.text = "                   This plugin doesnt work with BSMODUI";
             }
-            if (_mods[_selectedMod].GetPlugin is ModGui)
+            if (_mods[_selectedMod].GetPlugin is IModGui)
             {
                 Utils.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 //TODO: IMPLEMENT STUFFS
                 _toggleButton.gameObject.SetActive(true);
                 _modMenuUi.SetButtonText(ref _toggleButton, "Disable");
                 _compatibilitytext.gameObject.SetActive(false);
-            } else
+            }
+            else
             {
                 _toggleButton.gameObject.SetActive(false);
                 _compatibilitytext.gameObject.SetActive(true);
             }
-            
+
 
 
 
