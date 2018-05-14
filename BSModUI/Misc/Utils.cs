@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 
-namespace BSModUI
+namespace BSModUI.Misc
 {
     internal class Utils
     {
@@ -30,7 +27,7 @@ namespace BSModUI
                     Console.ForegroundColor = ConsoleColor.Red;
                     break;
             }
-            Console.WriteLine("["+severity+"] Mod Menu: " + message);
+            Console.WriteLine("[" + severity + "] Mod Menu: " + message);
             UnityEngine.Debug.Log("Mod Menu: " + message);
             Console.ResetColor();
         }
