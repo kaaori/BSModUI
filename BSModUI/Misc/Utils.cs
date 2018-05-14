@@ -13,23 +13,11 @@ namespace BSModUI.Misc
         }
 
         // Useful Utils
-        public static void Log(string message, Severity severity = Severity.Log)
+        public static void Log(string message, Severity severity = Severity.Log, string additionalInfo = "")
         {
-            switch (severity)
-            {
-                case Severity.Log:
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    break;
-                case Severity.Warning:
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    break;
-                case Severity.Error:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    break;
-            }
-            Console.WriteLine("[" + severity + "] Mod Menu: " + message);
+            // Severity colours were breaking console for other plugins lmao
+            Console.WriteLine($"[{severity}]{(additionalInfo.Equals("")?"": $" [{additionalInfo}]")} Mod Menu: " + message);
             UnityEngine.Debug.Log("Mod Menu: " + message);
-            Console.ResetColor();
         }
 
         public enum Severity

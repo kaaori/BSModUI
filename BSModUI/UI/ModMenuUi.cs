@@ -34,19 +34,14 @@ namespace BSModUI.UI
             //DEBUG LINE<
             if (Input.GetKeyDown(KeyCode.Home))
             {
-
-
-
             }
-
-
-
         }
         public static void OnLoad()
         {
 
             if (ModMenuUi._instance != null)
             {
+                ModMenuUi._instance.Awake();
                 return;
             }
             if (GameObject.FindObjectOfType<ModMenuUi>() != null)

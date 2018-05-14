@@ -38,6 +38,7 @@ namespace BSModUI
         {
             if (SceneManager.GetActiveScene().buildIndex == 1)
             {
+                Utils.Log("Main menu active");
                 ModMenuUi.OnLoad();
                 VersionChecker.OnLoad();
             }
