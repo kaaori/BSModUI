@@ -14,7 +14,7 @@ using VRUI;
 
 namespace BSModUI
 {
-    public class ModMenuPlugin : IGithubInfoPlugin
+    public class ModMenuPlugin : IModGui
     {
         public string Name => "Beat Saber Mod UI";
 
@@ -23,6 +23,10 @@ namespace BSModUI
         public string Author => "kaaori";
 
         public string GithubProjName => "BSModUI";
+
+        public string Image => "Nothing Yet";
+
+        public bool IsEnabled => false;
 
         public string[] Filter { get; }
 
@@ -82,5 +86,6 @@ namespace BSModUI
         public void OnLateUpdate()
         {
         }
+
     }
 }

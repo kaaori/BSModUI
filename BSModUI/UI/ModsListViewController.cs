@@ -21,6 +21,7 @@ namespace BSModUI.UI
         private Button _pageUpButton;
         private Button _pageDownButton;
         private Button _toggleButton;
+        private UnityEngine.UI.Toggle _toggleSwitch;
         private List<ModSelection> _modSelections = new List<ModSelection>();
         private TextMeshProUGUI _compatibilitytext;
         private List<Mod> _mods = new List<Mod>();
@@ -36,7 +37,8 @@ namespace BSModUI.UI
 
             try
             {
-
+                _toggleSwitch = Resources.FindObjectsOfTypeAll<UnityEngine.UI.Toggle>().First();
+                Utils.Log(_toggleSwitch == null ? "Toggle switch null" : "Toggle switch not null!");
                 if (_pageDownButton == null)
                 {
                     _pageDownButton = _modMenuUi.CreateButton(rectTransform, "PageDownButton");
@@ -112,8 +114,7 @@ namespace BSModUI.UI
                 Name = plugin.Name ?? "No name",
                 Version = plugin.Version ?? "No version",
                 GetPlugin = plugin,
-            })
-                .ToList();
+            }).ToList();
             return modsList;
         }
 
@@ -129,11 +130,11 @@ namespace BSModUI.UI
 
                 try
                 {
-                    Mask _viewportMask = Instantiate(Resources.FindObjectsOfTypeAll<UnityEngine.UI.Mask>().First(), _modsTableView.transform, false);
+                    var viewportMask = Instantiate(Resources.FindObjectsOfTypeAll<UnityEngine.UI.Mask>().First(), _modsTableView.transform, false);
 
-                    _modsTableView.GetComponentsInChildren<RectTransform>().First(x => x.name == "Content").transform.SetParent(_viewportMask.rectTransform, false);
+                    _modsTableView.GetComponentsInChildren<RectTransform>().First(x => x.name == "Content").transform.SetParent(viewportMask.rectTransform, false);
                 }
-                catch (Exception e)
+                catch
                 {
                     Utils.Log("Can't create mask for Content!", Utils.Severity.Warning);
                 }
@@ -149,8 +150,6 @@ namespace BSModUI.UI
                 ReflectionUtil.SetPrivateField(_modsTableView, "_pageDownButton", _pageDownButton);
 
                 _modsTableView.ScrollToRow(0, false);
-
-
             }
             else
             {
@@ -163,28 +162,28 @@ namespace BSModUI.UI
         {
             try
             {
-                if (_parentViewController._modDetailsViewController == null)
+                if (_parentViewController.ModDetailsViewController == null)
                 {
-                    _parentViewController._modDetailsViewController = Instantiate(Resources.FindObjectsOfTypeAll<SongDetailViewController>().First(), rectTransform, false);
+                    _parentViewController.ModDetailsViewController = Instantiate(Resources.FindObjectsOfTypeAll<SongDetailViewController>().First(), rectTransform, false);
 
-                    SetModDetailsData(_parentViewController._modDetailsViewController, row);
+                    SetModDetailsData(_parentViewController.ModDetailsViewController, row);
 
-                    _parentViewController.PushViewController(_parentViewController._modDetailsViewController, false);
+                    _parentViewController.PushViewController(_parentViewController.ModDetailsViewController, false);
 
-                    _parentViewController._modDetailsPushed = true;
+                    _parentViewController.ModDetailsPushed = true;
                 }
                 else
                 {
-                    if (_parentViewController._modDetailsPushed)
+                    if (_parentViewController.ModDetailsPushed)
                     {
-                        SetModDetailsData(_parentViewController._modDetailsViewController, row);
+                        SetModDetailsData(_parentViewController.ModDetailsViewController, row);
                     }
                     else
                     {
-                        SetModDetailsData(_parentViewController._modDetailsViewController, row);
-                        _parentViewController.PushViewController(_parentViewController._modDetailsViewController, false);
+                        SetModDetailsData(_parentViewController.ModDetailsViewController, row);
+                        _parentViewController.PushViewController(_parentViewController.ModDetailsViewController, false);
 
-                        _parentViewController._modDetailsPushed = true;
+                        _parentViewController.ModDetailsPushed = true;
                     }
                 }
             }
@@ -235,15 +234,16 @@ namespace BSModUI.UI
             }
             if (_compatibilitytext == null)
             {
-                var temp = modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "DurationText").First();
+                var temp = modDetails.GetComponentsInChildren<TextMeshProUGUI>().First(x => x.name == "DurationText");
 
                 _compatibilitytext = _modMenuUi.CreateTMPText(temp.rectTransform, "a", new Vector2(0.7f, 0.5f));
-                //ive tried a lot of stuff im sorry for this horrible solution
+                // ive tried a lot of stuff im sorry for this horrible solution
+                // it's ok ^ - Kaori
                 _compatibilitytext.text = "                   This plugin doesnt work with BSMODUI";
             }
             if (_mods[selectedMod].GetPlugin is IModGui)
             {
-                Utils.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                //Utils.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 //TODO: IMPLEMENT STUFFS
                 _toggleButton.gameObject.SetActive(true);
                 _modMenuUi.SetButtonText(ref _toggleButton, "Disable");
@@ -254,10 +254,6 @@ namespace BSModUI.UI
                 _toggleButton.gameObject.SetActive(false);
                 _compatibilitytext.gameObject.SetActive(true);
             }
-
-
-
-
         }
 
         public float RowHeight()
@@ -272,12 +268,13 @@ namespace BSModUI.UI
 
         public TableCell CellForRow(int row)
         {
-            SongListTableCell _tableCell = Instantiate(_songListTableCellInstance);
+            var tableCell = Instantiate(_songListTableCellInstance);
 
-            _tableCell.songName = _mods.ElementAtOrDefault(row).Name;
-            _tableCell.author = _mods.ElementAtOrDefault(row).Version;
+            var mod = _mods.ElementAtOrDefault(row);
+            tableCell.songName = mod?.Name;
+            tableCell.author = mod?.Version;
 
-            return _tableCell;
+            return tableCell;
         }
 
 

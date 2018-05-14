@@ -16,7 +16,7 @@ namespace BSModUI.Misc
         public static void Log(string message, Severity severity = Severity.Log, string additionalInfo = "")
         {
             // Severity colours were breaking console for other plugins lmao
-            Console.WriteLine($"[{severity}]{(additionalInfo.Equals("")?"": $" [{additionalInfo}]")} Mod Menu: " + message);
+            Console.WriteLine($"[{severity}]{(additionalInfo == "" ? "" : $" [{additionalInfo}]")} Mod Menu: " + message);
             UnityEngine.Debug.Log("Mod Menu: " + message);
         }
 

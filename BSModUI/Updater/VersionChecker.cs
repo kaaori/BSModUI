@@ -8,7 +8,8 @@ using UnityEngine;
 
 namespace BSModUI.Updater
 {
-    public class VersionChecker : MonoBehaviour {
+    public class VersionChecker : MonoBehaviour
+    {
 
         /// <summary>
         /// Event to be called when the info of a plugin has been set
@@ -42,11 +43,12 @@ namespace BSModUI.Updater
         /// <summary>
         /// Call this in the OnLevelWasLoaded or we get issues
         /// </summary>
-        public static void OnLoad() {
+        public static void OnLoad()
+        {
             if (Instance != null) return;
-            ModMenuUi._instance.gameObject.AddComponent<VersionChecker>();
+            ModMenuUi.Instance.gameObject.AddComponent<VersionChecker>();
         }
-        
+
         void Awake()
         {
             Instance = this;
@@ -54,18 +56,21 @@ namespace BSModUI.Updater
             Init();
 
             if (PluginInfos.Count != 0) return; //if the array contains some objects we must have already ran this
-                                                
+
             //get the plugins which implement IVerCheckPlugins
             //Don't worry about this, it handles all the retrieval on creation and calls OnInfoSet when the version has been set
             Plugins.ForEach(plugin => new LatestPluginInfo(plugin, _versionCheckerInterop, _onInfoSet));
         }
 
-        void Init() {
-            if (_versionCheckerInterop == null) {
-                _versionCheckerInterop = ModMenuUi._instance.gameObject.AddComponent<VcInterop>();
+        void Init()
+        {
+            if (_versionCheckerInterop == null)
+            {
+                _versionCheckerInterop = ModMenuUi.Instance.gameObject.AddComponent<VcInterop>();
             }
 
-            if (OnPluginInfoAdded == null) {
+            if (OnPluginInfoAdded == null)
+            {
                 OnPluginInfoAdded = new LatestPluginInfoEvent();
             }
 
@@ -80,7 +85,8 @@ namespace BSModUI.Updater
         /// Called when a plugin's version info has been set
         /// </summary>
         /// <param name="info">the latest version info</param>
-        private void OnSet(LatestPluginInfo info) {
+        private void OnSet(LatestPluginInfo info)
+        {
             Utils.Log($"{info.Plugin.Name} is {(info.IsLatestVersion ? " " : " not ")} up to date");
             PluginInfos.Add(info); //adds it to the local array of Plugins
             OnPluginInfoAdded?.Invoke(info);
