@@ -30,7 +30,7 @@ namespace BSModUI
                     Console.ForegroundColor = ConsoleColor.Red;
                     break;
             }
-            Console.WriteLine("["+severity+"] Mod Menu: " + message);
+            Console.WriteLine("[" + severity + "] Mod Menu: " + message);
             UnityEngine.Debug.Log("Mod Menu: " + message);
             Console.ResetColor();
         }

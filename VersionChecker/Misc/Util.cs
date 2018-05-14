@@ -14,10 +14,10 @@ namespace VersionChecker.Misc {
         /// <param name="plugin"></param>
         /// <param name="method"></param>
         /// <returns></returns>
-        public static IEnumerator GetGithubJson(VCInterop interop, IVerCheckPlugin plugin, Action<GithubReleasePage> method) {
+        public static IEnumerator GetGithubJson(VcInterop interop, IVerCheckPlugin plugin, Action<GithubReleasePage> method) {
             yield return interop.StartCoroutine(interop.GithubInterop(plugin.GithubAuthor, plugin.GithubProjName));
                 var page = interop.CoroutineResults.FirstOrDefault(o =>
-                    o.author == plugin.GithubAuthor && o.projName == plugin.GithubProjName).Page;
+                    o.Author == plugin.GithubAuthor && o.ProjName == plugin.GithubProjName).Page;
                 //Logger.Log($"Pages is Null? {page == null}");
                 method.Invoke(page);
         }

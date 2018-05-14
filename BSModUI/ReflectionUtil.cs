@@ -18,7 +18,7 @@ namespace BSModUI
         {
             FieldInfo field = obj.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
             object value = field.GetValue(obj);
-            return (T) ((object) value);
+            return (T)((object)value);
         }
 
         public static object GetPrivateField(Type type, object obj, string fieldName)

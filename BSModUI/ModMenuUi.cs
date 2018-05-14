@@ -63,9 +63,9 @@ namespace BSModUI
                 _cogWheelButtonInstance = allButtons.FirstOrDefault(x => x.name == "SettingsButton");
                 _downArrowBtn = allButtons.First(x => x.name == "PageDownButton");
                 _upArrowBtn = allButtons.First(x => x.name == "PageUpButton");
-                _backButtonInstance = allButtons.First(x=> x.name == "BackArrowButton");
+                _backButtonInstance = allButtons.First(x => x.name == "BackArrowButton");
                 _mainMenuViewController = Resources.FindObjectsOfTypeAll<MainMenuViewController>().First();
-                _mainMenuRectTransform = (RectTransform) _buttonInstance.transform.parent;
+                _mainMenuRectTransform = (RectTransform)_buttonInstance.transform.parent;
 
                 Utils.Log("Buttons and main menu found.");
                 AddModMenuButton();
@@ -73,7 +73,7 @@ namespace BSModUI
             }
             catch (Exception ex)
             {
-                Utils.Log(ex.StackTrace+ex.Message, Utils.Severity.Error);
+                Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
             }
         }
 
@@ -161,7 +161,7 @@ namespace BSModUI
         {
             try
             {
-                var templateButton = Resources.FindObjectsOfTypeAll<Button>().First(x=>x.name == templateButtonName);
+                var templateButton = Resources.FindObjectsOfTypeAll<Button>().First(x => x.name == templateButtonName);
                 if (templateButton == null)
                 {
                     Utils.Log("Failed to create button from template, invalid name?", Utils.Severity.Error);

@@ -16,7 +16,7 @@ namespace BSModUI
         private new ModMenuMasterViewController _parentViewController;
 
         private ModMenuUi _modMenuUi;
-        
+
         private Button _pageUpButton;
         private Button _pageDownButton;
 
@@ -126,9 +126,9 @@ namespace BSModUI
 
                 try
                 {
-                    Mask _viewportMask = Instantiate(Resources.FindObjectsOfTypeAll<UnityEngine.UI.Mask>().First(), _modsTableView.transform, false);
+                    Mask viewportMask = Instantiate(Resources.FindObjectsOfTypeAll<UnityEngine.UI.Mask>().First(), _modsTableView.transform, false);
 
-                    _modsTableView.GetComponentsInChildren<RectTransform>().Where(x => x.name == "Content").First().transform.SetParent(_viewportMask.rectTransform, false);
+                    _modsTableView.GetComponentsInChildren<RectTransform>().Where(x => x.name == "Content").First().transform.SetParent(viewportMask.rectTransform, false);
                 }
                 catch (Exception e)
                 {
@@ -162,30 +162,30 @@ namespace BSModUI
             {
 
 
-                if (_parentViewController._modDetailsViewController == null)
+                if (_parentViewController.ModDetailsViewController == null)
                 {
-                    _parentViewController._modDetailsViewController = Instantiate(Resources.FindObjectsOfTypeAll<SongDetailViewController>().First(), rectTransform, false);
+                    _parentViewController.ModDetailsViewController = Instantiate(Resources.FindObjectsOfTypeAll<SongDetailViewController>().First(), rectTransform, false);
 
-                    SetModDetailsData(_parentViewController._modDetailsViewController, row);
+                    SetModDetailsData(_parentViewController.ModDetailsViewController, row);
 
-                    _parentViewController.PushViewController(_parentViewController._modDetailsViewController, false);
+                    _parentViewController.PushViewController(_parentViewController.ModDetailsViewController, false);
 
-                    _parentViewController._modDetailsPushed = true;
+                    _parentViewController.ModDetailsPushed = true;
                 }
                 else
                 {
-                    if (_parentViewController._modDetailsPushed)
+                    if (_parentViewController.ModDetailsPushed)
                     {
-                        SetModDetailsData(_parentViewController._modDetailsViewController, row);
+                        SetModDetailsData(_parentViewController.ModDetailsViewController, row);
                     }
                     else
                     {
-                        SetModDetailsData(_parentViewController._modDetailsViewController, row);
-                        _parentViewController.PushViewController(_parentViewController._modDetailsViewController, false);
+                        SetModDetailsData(_parentViewController.ModDetailsViewController, row);
+                        _parentViewController.PushViewController(_parentViewController.ModDetailsViewController, false);
 
-                        _parentViewController._modDetailsPushed = true;
+                        _parentViewController.ModDetailsPushed = true;
                     }
-                    
+
                 }
             }
             catch (Exception e)
@@ -196,45 +196,45 @@ namespace BSModUI
 
         }
 
-        private void SetModDetailsData(SongDetailViewController _modDetails, int _selectedMod)
+        private void SetModDetailsData(SongDetailViewController modDetails, int selectedMod)
         {
-            _modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "SongNameText").First().text = _mods[_selectedMod].Name;
-            _modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "DurationText").First().text = "Version";
-            _modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "DurationValueText").First().text = _mods[_selectedMod].Version;
+            modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "SongNameText").First().text = _mods[selectedMod].Name;
+            modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "DurationText").First().text = "Version";
+            modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "DurationValueText").First().text = _mods[selectedMod].Version;
 
             try
             {
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "BPMText").First().gameObject);
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "BPMValueText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "BPMText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "BPMValueText").First().gameObject);
 
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "NotesCountText").First().gameObject);
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "NotesCountValueText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "NotesCountText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "NotesCountValueText").First().gameObject);
 
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "ObstaclesCountText").First().gameObject);
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "ObstaclesCountValueText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "ObstaclesCountText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "ObstaclesCountValueText").First().gameObject);
 
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "Title").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "Title").First().gameObject);
 
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "HighScoreText").First().gameObject);
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "HighScoreValueText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "HighScoreText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "HighScoreValueText").First().gameObject);
 
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "MaxComboText").First().gameObject);
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "MaxComboValueText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "MaxComboText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "MaxComboValueText").First().gameObject);
 
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "MaxRankText").First().gameObject);
-                Destroy(_modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "MaxRankValueText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "MaxRankText").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "MaxRankValueText").First().gameObject);
 
-                Destroy(_modDetails.GetComponentsInChildren<RectTransform>().Where(x => x.name == "YourStats").First().gameObject);
+                Destroy(modDetails.GetComponentsInChildren<RectTransform>().Where(x => x.name == "YourStats").First().gameObject);
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Utils.Log(e.ToString(),Utils.Severity.Warning);
+                Utils.Log(e.ToString(), Utils.Severity.Warning);
             }
 
-            Button _toggleButton = _modDetails.GetComponentInChildren<Button>();
+            Button toggleButton = modDetails.GetComponentInChildren<Button>();
 
-            _modMenuUi.SetButtonText(ref _toggleButton, "Disable");
+            _modMenuUi.SetButtonText(ref toggleButton, "Disable");
 
 
 
@@ -252,12 +252,12 @@ namespace BSModUI
 
         public TableCell CellForRow(int row)
         {
-            SongListTableCell _tableCell = Instantiate(_songListTableCellInstance);
+            SongListTableCell tableCell = Instantiate(_songListTableCellInstance);
 
-            _tableCell.songName = _mods.ElementAtOrDefault(row).Name;
-            _tableCell.author = _mods.ElementAtOrDefault(row).Version;
+            tableCell.songName = _mods.ElementAtOrDefault(row).Name;
+            tableCell.author = _mods.ElementAtOrDefault(row).Version;
 
-            return _tableCell;
+            return tableCell;
         }
 
 

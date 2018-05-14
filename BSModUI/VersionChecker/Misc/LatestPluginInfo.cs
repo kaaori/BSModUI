@@ -1,11 +1,13 @@
-﻿using VersionChecker.Interfaces;
-using VersionChecker.Misc.Github;
+﻿using BSModUI.VersionChecker.Interfaces;
+using BSModUI.VersionChecker.Misc.Github;
 
-namespace VersionChecker.Misc {
+namespace BSModUI.VersionChecker.Misc
+{
     /// <summary>
     /// Stores the latest update info about a plugin
     /// </summary>
-    public struct LatestPluginInfo {
+    public struct LatestPluginInfo
+    {
         /// <summary>
         /// the plugin in question
         /// </summary>
@@ -43,7 +45,8 @@ namespace VersionChecker.Misc {
         /// <param name="plugin"></param>
         /// <param name="interop"></param>
         /// <param name="vCheck"></param>
-        public LatestPluginInfo(IVerCheckPlugin plugin, VcInterop interop, LatestPluginInfoEvent vCheck) {
+        public LatestPluginInfo(IVerCheckPlugin plugin, VCInterop interop, LatestPluginInfoEvent vCheck)
+        {
             Plugin = plugin;
             IsLatestVersion = false;
             HasVersionBeenSet = false;
@@ -58,15 +61,18 @@ namespace VersionChecker.Misc {
         /// Gets the latest version of the plugin from github
         /// </summary>
         /// <param name="o">the data returned by the github api</param>
-        private void SetLatestVersion(GithubReleasePage o) {
-            if (o.TagName != null) { //if the page exists
+        private void SetLatestVersion(GithubReleasePage o)
+        {
+            if (o.tag_name != null)
+            { //if the page exists
                 ReleasePage = o; //sets the local page to the page returned incase the data needs to be used elsewhere
-                LatestVersion = ReleasePage.TagName.StartsWith("v")
-                    ? ReleasePage.TagName.Substring(1)
-                    : ReleasePage.TagName; //sets the latest version = the string retrieved from github
+                LatestVersion = ReleasePage.tag_name.StartsWith("v")
+                    ? ReleasePage.tag_name.Substring(1)
+                    : ReleasePage.tag_name; //sets the latest version = the string retrieved from github
                 IsLatestVersion = LatestVersion == Plugin.Version; //checks the latest version against the local version
             }
-            else { //if there is no github page
+            else
+            { //if there is no github page
                 IsLatestVersion = true;
             }
 

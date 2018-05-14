@@ -52,12 +52,12 @@ namespace BSModUI
     {
         private ModMenuUi _modMenuUi = FindObjectOfType<ModMenuUi>();
 
-        
+
         private Button _backButton;
 
-        public ModsListViewController _modsListViewController;
-        public SongDetailViewController _modDetailsViewController;
-        public bool _modDetailsPushed = false;
+        public ModsListViewController ModsListViewController;
+        public SongDetailViewController ModDetailsViewController;
+        public bool ModDetailsPushed = false;
 
         private ModMenuMasterViewController _modList;
 
@@ -68,7 +68,7 @@ namespace BSModUI
             _modMenuUi = FindObjectOfType<ModMenuUi>();
             try
             {
-                
+
                 _backButton = _modMenuUi.CreateBackButton(rectTransform);
                 (_backButton.transform as RectTransform).anchorMin = new Vector2(0, 0);
                 (_backButton.transform as RectTransform).anchorMin = new Vector2(0, 0);
@@ -78,17 +78,17 @@ namespace BSModUI
                     DismissModalViewController(null, false);
                 });
 
-                _modsListViewController = _modMenuUi.CreateViewController<ModsListViewController>();
+                ModsListViewController = _modMenuUi.CreateViewController<ModsListViewController>();
 
-                _modsListViewController.rectTransform.anchorMin = new Vector2(0.3f, 0f);
-                _modsListViewController.rectTransform.anchorMax = new Vector2(0.7f, 1f);
+                ModsListViewController.rectTransform.anchorMin = new Vector2(0.3f, 0f);
+                ModsListViewController.rectTransform.anchorMax = new Vector2(0.7f, 1f);
 
-                PushViewController(_modsListViewController,true);
+                PushViewController(ModsListViewController, true);
 
                 Utils.Log("View Controller activated");
-                
 
-                
+
+
                 base.DidActivate();
             }
             catch (Exception ex)
@@ -96,15 +96,15 @@ namespace BSModUI
                 Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
             }
         }
-        
+
 
         protected override void DidDeactivate()
         {
-            _modDetailsPushed = false;
+            ModDetailsPushed = false;
         }
 
-        
 
-        
+
+
     }
 }

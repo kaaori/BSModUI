@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VersionChecker.Misc.Github {
-    
+namespace BSModUI.VersionChecker.Misc.Github
+{
+
     /*
      *
      *This whole file represents the json structure retrieved when requesting a release page using the json API
      * 
      */
-    
+
     [Serializable]
-    public class Author {
+    public class Author
+    {
         public string Login;
         public int Id;
         public string AvatarUrl;
@@ -31,7 +33,8 @@ namespace VersionChecker.Misc.Github {
     }
 
     [Serializable]
-    public class Uploader {
+    public class Uploader
+    {
         public string Login;
         public int Id;
         public string AvatarUrl;
@@ -52,7 +55,8 @@ namespace VersionChecker.Misc.Github {
     }
 
     [Serializable]
-    public class Asset {
+    public class Asset
+    {
         public string Url;
         public int Id;
         public string Name;
@@ -68,7 +72,8 @@ namespace VersionChecker.Misc.Github {
     }
 
     [Serializable]
-    public class GithubReleasePage {
+    public class GithubReleasePage
+    {
         public string Url;
         public string AssetsUrl;
         public string UploadUrl;

@@ -17,7 +17,7 @@ namespace SuddenDeath
         private GameEnergyCounter _energyCounter;
         private GameplayManager _gameplayManager;
         private GameSongController _songController;
-        private float oldEnergy = 0f; 
+        private float _oldEnergy = 0f; 
 
         public void OnApplicationStart()
         {
@@ -36,7 +36,7 @@ namespace SuddenDeath
             _gameplayManager = UnityEngine.Object.FindObjectOfType<GameplayManager>();
             if (_energyCounter != null)
             {
-                oldEnergy = _energyCounter.energy;
+                _oldEnergy = _energyCounter.energy;
             }
         }
 
@@ -60,13 +60,13 @@ namespace SuddenDeath
         {
             if (_energyCounter == null) return;
 
-            if (_gameplayManager.gameState != GameplayManager.GameState.Failed && _energyCounter.energy < oldEnergy)
+            if (_gameplayManager.gameState != GameplayManager.GameState.Failed && _energyCounter.energy < _oldEnergy)
             {
                 _gameplayManager.HandleGameEnergyDidReach0();
                 //_songController.FailStopSong();
                 return;
             }
-            oldEnergy = _energyCounter.energy;
+            _oldEnergy = _energyCounter.energy;
             
         }
 

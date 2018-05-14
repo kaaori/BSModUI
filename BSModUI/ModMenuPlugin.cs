@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VersionChecker.Interfaces;
 using VRUI;
+using IVerCheckPlugin = BSModUI.VersionChecker.Interfaces.IVerCheckPlugin;
 
 namespace BSModUI
 {
@@ -14,7 +15,7 @@ namespace BSModUI
         public string Name => "Beat Saber Mod UI";
 
         public string Version => "0.0.1";
-        
+
         public string GithubAuthor => "kaaori";
         public string GithubProjName => "BSModUI";
 
@@ -55,7 +56,7 @@ namespace BSModUI
         public void OnUpdate()
         {
             // Debug util
-            if(Input.GetKeyDown(KeyCode.Insert))
+            if (Input.GetKeyDown(KeyCode.Insert))
             {
                 SceneDumper.DumpScene();
             }
