@@ -1,11 +1,12 @@
 ﻿
 
 using BSModUI.Interfaces;
+using IllusionPlugin;
 using UnityEngine.SceneManagement;
 
 namespace TestModWithUi
 {
-    public class TestModWithUiPlugin : IModGui
+    public class TestModWithUiPlugin : IModGui, IPluginNew
     {
 
         public void OnApplicationStart()
@@ -34,6 +35,13 @@ namespace TestModWithUi
         }
         
         public void OnLateUpdate() {
+        }
+        
+        public void OnLevelWasLoaded(int level) {
+            
+        }
+        
+        public void OnLevelWasInitialized(int level) {
         }
 
         public string Name => "Beat Saber Mod Test";

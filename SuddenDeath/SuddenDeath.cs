@@ -4,8 +4,9 @@ using UnityEngine.SceneManagement;
 
 namespace SuddenDeath
 {
-    public class SuddenDeath : IModGui
+    public class SuddenDeath : IModGui, IPluginNew
     {
+
         public string Name => "Sudden Death Plugin";
         public string Author { get; }
         public string Version => "0.0.1";
@@ -53,6 +54,13 @@ namespace SuddenDeath
 
         public void OnFixedUpdate()
         {
+        }
+
+        public void OnLevelWasLoaded(int level) {
+            
+        }
+        
+        public void OnLevelWasInitialized(int level) {
         }
 
         public void OnLateUpdate()

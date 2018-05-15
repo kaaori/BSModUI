@@ -2,7 +2,7 @@
 
 namespace BSModUI.Updater.Interfaces
 {
-    public interface IGithubInfoPlugin : IEnhancedPlugin
+    public interface IGithubInfoPlugin : IEnhancedPlugin, IPluginNew
     {
         /// <summary>
         /// The Github Author

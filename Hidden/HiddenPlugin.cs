@@ -9,11 +9,19 @@ using UnityEngine.SceneManagement;
 
 namespace Hidden
 {
-    public class HiddenPlugin : IEnhancedPlugin
+    public class HiddenPlugin : IEnhancedPlugin, IPluginNew
     {
         public void OnFixedUpdate()
         {
 
+        }
+
+        public void OnLevelWasLoaded(int level) {
+            //
+        }
+
+        public void OnLevelWasInitialized(int level) {
+            //
         }
 
         public string Name => "Hidden Plugin";

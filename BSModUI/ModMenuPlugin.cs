@@ -17,6 +17,7 @@ namespace BSModUI
 {
     public class ModMenuPlugin : IModGui
     {
+
         public string Name => "Beat Saber Mod UI";
 
         public string Version => "0.0.1";
@@ -74,6 +75,13 @@ namespace BSModUI
 
         public void OnFixedUpdate()
         {
+        }
+
+        public void OnLevelWasLoaded(int level) {
+            
+        }
+        
+        public void OnLevelWasInitialized(int level) {
         }
 
         public void OnLateUpdate()
