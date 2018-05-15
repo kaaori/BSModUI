@@ -38,7 +38,7 @@ namespace BSModUI.UI
             try
             {
                 _toggleSwitch = Resources.FindObjectsOfTypeAll<UnityEngine.UI.Toggle>().First();
-                Utils.Log(_toggleSwitch == null ? "Toggle switch null" : "Toggle switch not null!");
+                ModMenuPlugin.debugLogger.Log(_toggleSwitch == null ? "Toggle switch null" : "Toggle switch not null!");
                 if (_pageDownButton == null)
                 {
                     _pageDownButton = _modMenuUi.CreateButton(rectTransform, "PageDownButton");
@@ -50,7 +50,7 @@ namespace BSModUI.UI
                     _pageDownButton.onClick.AddListener(delegate ()
                     {
                         _modsTableView.PageScrollDown();
-                        Utils.Log("Page down pressed");
+                        ModMenuPlugin.debugLogger.Log("Page down pressed");
                     });
                 }
                 if (_pageUpButton == null)
@@ -63,14 +63,14 @@ namespace BSModUI.UI
                     _pageUpButton.onClick.AddListener(delegate ()
                     {
                         _modsTableView.PageScrollUp();
-                        Utils.Log("Page up pressed");
+                        ModMenuPlugin.debugLogger.Log("Page up pressed");
                     });
                 }
 
             }
             catch (Exception ex)
             {
-                Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Exception(ex.StackTrace + ex.Message);
             }
 
 
@@ -83,18 +83,18 @@ namespace BSModUI.UI
 
         private void LoadMods()
         {
-            Utils.Log("Loading mods");
+            ModMenuPlugin.debugLogger.Log("Loading mods");
             try
             {
                 _mods = GetModsFromIPA();
                 if (_mods.Count == 0)
                 {
-                    Utils.Log("No mods found");
+                    ModMenuPlugin.debugLogger.Log("No mods found");
                 }
                 foreach (var mod in _mods)
                 {
 
-                    Utils.Log(mod.Name);
+                    ModMenuPlugin.debugLogger.Log(mod.Name);
                 }
 
                 RefreshScreen();
@@ -102,7 +102,7 @@ namespace BSModUI.UI
             }
             catch (Exception ex)
             {
-                Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Exception(ex.StackTrace + ex.Message);
             }
         }
 
@@ -136,7 +136,7 @@ namespace BSModUI.UI
                 }
                 catch
                 {
-                    Utils.Log("Can't create mask for Content!", Utils.Severity.Warning);
+                    ModMenuPlugin.debugLogger.Warning("Can't create mask for Content!");
                 }
 
                 ((RectTransform)_modsTableView.transform).anchorMin = new Vector2(0f, 0.5f);
@@ -189,7 +189,7 @@ namespace BSModUI.UI
             }
             catch (Exception e)
             {
-                Utils.Log(e.ToString(), Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Exception(e.ToString());
             }
         }
 
@@ -226,7 +226,7 @@ namespace BSModUI.UI
             }
             catch (Exception e)
             {
-                Utils.Log(e.ToString(), Utils.Severity.Warning);
+                ModMenuPlugin.debugLogger.Warning(e.ToString());
             }
             if (_toggleButton == null)
             {

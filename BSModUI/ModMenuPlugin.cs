@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VRUI;
+using Logger = IllusionPlugin.Logger;
 
 namespace BSModUI
 {
@@ -32,39 +33,31 @@ namespace BSModUI
 
         private IEnumerable<IModGui> Plugins => VersionChecker.Instance.Plugins;
 
+        internal static Logger debugLogger = null;
+
         public void OnApplicationStart()
         {
-            SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
-            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        }
+        
+        public void OnApplicationQuit()
+        {
         }
 
-        private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+        public void OnSceneLoaded(Scene scene, LoadSceneMode arg1)
         {
-            if (SceneManager.GetActiveScene().buildIndex == 1)
-            {
-                Utils.Log("Main menu active");
+            if (SceneManager.GetActiveScene().buildIndex == 1) {
+                if (debugLogger == null) debugLogger = this.GetLogger();
+                debugLogger.Log("Main menu active");
                 ModMenuUi.OnLoad();
                 VersionChecker.OnLoad();
             }
         }
 
-        public void OnApplicationQuit()
-        {
-            SceneManager.activeSceneChanged -= SceneManagerOnActiveSceneChanged;
-            SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
+        public void OnSceneUnloaded(Scene scene) {
         }
 
-        private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene scene)
+        public void OnActiveSceneChanged(Scene prev, Scene next)
         {
-        }
-
-        public void OnLevelWasLoaded(int level)
-        {
-        }
-
-        public void OnLevelWasInitialized(int level)
-        {
-
         }
 
         public void OnUpdate()

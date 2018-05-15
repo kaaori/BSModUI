@@ -1,13 +1,19 @@
-﻿using IllusionPlugin;
+﻿using BSModUI.Interfaces;
+using IllusionPlugin;
 using UnityEngine.SceneManagement;
 
 namespace SuddenDeath
 {
-    public class SuddenDeath : IEnhancedPlugin
+    public class SuddenDeath : IModGui
     {
         public string Name => "Sudden Death Plugin";
-
+        public string Author { get; }
         public string Version => "0.0.1";
+
+        public string GithubProjName { get; }
+        
+        public string Image { get; }
+        public bool IsEnabled { get; }
 
         public string[] Filter { get; }
 
@@ -18,15 +24,19 @@ namespace SuddenDeath
 
         public void OnApplicationStart()
         {
-            SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
         }
 
         public void OnApplicationQuit()
         {
-            SceneManager.activeSceneChanged -= SceneManagerOnActiveSceneChanged;
         }
 
-        private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene scene)
+        public void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode) {
+        }
+
+        public void OnSceneUnloaded(Scene scene) {
+        }
+
+        public void OnActiveSceneChanged(Scene arg0, Scene scene)
         {
             _energyCounter = UnityEngine.Object.FindObjectOfType<GameEnergyCounter>();
             _songController = UnityEngine.Object.FindObjectOfType<GameSongController>();
@@ -35,14 +45,6 @@ namespace SuddenDeath
             {
                 _oldEnergy = _energyCounter.energy;
             }
-        }
-
-        public void OnLevelWasLoaded(int level)
-        {
-        }
-
-        public void OnLevelWasInitialized(int level)
-        {
         }
 
         public void OnUpdate()

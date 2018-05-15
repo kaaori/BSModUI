@@ -13,19 +13,19 @@ namespace BSModUI.Misc
         }
 
         // Useful Utils
-        public static void Log(string message, Severity severity = Severity.Log, string additionalInfo = "")
+        /*public static void Log(string message, Severity severity = Severity.Log, string additionalInfo = "")
         {
             // Severity colours were breaking console for other plugins lmao
             Console.WriteLine($"[{severity}]{(additionalInfo == "" ? "" : $" [{additionalInfo}]")} Mod Menu: " + message);
             UnityEngine.Debug.Log("Mod Menu: " + message);
-        }
+        }*/
 
-        public enum Severity
+        /*public enum Severity
         {
             Log,
             Warning,
             Error
-        }
+        }*/
 
         // Memes
         private static bool IsSorted<T>(ref List<T> data) where T : IComparable

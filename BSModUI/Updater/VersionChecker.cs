@@ -87,7 +87,7 @@ namespace BSModUI.Updater
         /// <param name="info">the latest version info</param>
         private void OnSet(LatestPluginInfo info)
         {
-            Utils.Log($"{info.Plugin.Name} is {(info.IsLatestVersion ? " " : " not ")} up to date");
+            ModMenuPlugin.debugLogger.Log($"{info.Plugin.Name} is {(info.IsLatestVersion ? " " : " not ")} up to date");
             PluginInfos.Add(info); //adds it to the local array of Plugins
             OnPluginInfoAdded?.Invoke(info);
         }

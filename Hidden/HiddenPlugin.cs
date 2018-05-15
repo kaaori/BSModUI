@@ -32,22 +32,26 @@ namespace Hidden
             SceneManager.activeSceneChanged -= SceneManagerOnActiveSceneChanged;
         }
 
-        private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene scene)
-        {
-
-        }
-
-        public void OnLevelWasLoaded(int level)
-        {
-           
-        }
-
-        public void OnLevelWasInitialized(int level)
-        {
-            if (level == 2)
+        //https://answers.unity.com/questions/1113318/applicationloadlevelapplicationloadedlevel-obsolet.html
+        //buildIndex == loadedLevel
+        public void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode) {
+            if (scene.buildIndex == 2)
             {
                 HiddenMod.OnLoad();
             }
+        }
+
+        public void OnSceneUnloaded(Scene scene) {
+            //
+        }
+
+        public void OnActiveSceneChanged(Scene prevScene, Scene nextScene) {
+            
+        }
+
+        private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene scene)
+        {
+
         }
 
         public void OnUpdate()
