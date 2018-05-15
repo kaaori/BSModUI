@@ -9,7 +9,7 @@ namespace Hidden
 {
     class HiddenMod : MonoBehaviour
     {
-        private static HiddenMod Instance;
+        private static HiddenMod _instance;
 
         private List<NoteController> _notes;
 
@@ -17,7 +17,7 @@ namespace Hidden
 
         public static void OnLoad()
         {
-            if (Instance != null)
+            if (_instance != null)
             {
                 return;
             }
@@ -26,7 +26,7 @@ namespace Hidden
 
         private void Awake()
         {
-            Instance = this;
+            _instance = this;
             _spawnController = FindObjectOfType<SongObjectSpawnController>();
 
             if (_spawnController == null)

@@ -13,7 +13,7 @@ namespace BSModUI.UI
     {
         static RectTransform _rightPos;
         static VRUIViewController _rightScreen;
-        internal static ModMenuUi _instance;
+        internal static ModMenuUi Instance;
 
         public static List<Sprite> Icons = new List<Sprite>();
 
@@ -34,19 +34,14 @@ namespace BSModUI.UI
             //DEBUG LINE<
             if (Input.GetKeyDown(KeyCode.Home))
             {
-
-
-
             }
-
-
-
         }
         public static void OnLoad()
         {
 
-            if (ModMenuUi._instance != null)
+            if (ModMenuUi.Instance != null)
             {
+                ModMenuUi.Instance.Awake();
                 return;
             }
             if (GameObject.FindObjectOfType<ModMenuUi>() != null)
@@ -61,7 +56,7 @@ namespace BSModUI.UI
         {
             Utils.Log("Mod Menu Awake");
 
-            _instance = this;
+            Instance = this;
             //DontDestroyOnLoad(gameObject);
 
             foreach (Sprite sprite in Resources.FindObjectsOfTypeAll<Sprite>())
