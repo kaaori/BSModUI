@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 namespace Hidden
 {
-    public class HiddenPlugin : IEnhancedPlugin, IPluginNew
+    public class HiddenPlugin : IEnhancedPlugin
     {
         public void OnFixedUpdate()
         {

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace SuddenDeath
 {
-    public class SuddenDeath : IModGui, IPluginNew
+    public class SuddenDeath : IModGui
     {
 
         public string Name => "Sudden Death Plugin";

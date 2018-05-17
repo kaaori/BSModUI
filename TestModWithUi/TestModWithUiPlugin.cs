@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace TestModWithUi
 {
-    public class TestModWithUiPlugin : IModGui, IPluginNew
+    public class TestModWithUiPlugin : IModGui
     {
 
         public void OnApplicationStart()
