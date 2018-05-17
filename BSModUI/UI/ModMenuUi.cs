@@ -49,12 +49,12 @@ namespace BSModUI.UI
                 return;
             }
             new GameObject("modmenu").AddComponent<ModMenuUi>();
-            Utils.Log("Modmenu GameObj instanced");
+            ModMenuPlugin.debugLogger.Log("Modmenu GameObj instanced");
         }
 
         void Awake()
         {
-            Utils.Log("Mod Menu Awake");
+            ModMenuPlugin.debugLogger.Log("Mod Menu Awake");
 
             Instance = this;
             //DontDestroyOnLoad(gameObject);
@@ -77,13 +77,13 @@ namespace BSModUI.UI
                 _mainMenuViewController = Resources.FindObjectsOfTypeAll<MainMenuViewController>().First();
                 _mainMenuRectTransform = (RectTransform)_buttonInstance.transform.parent;
 
-                Utils.Log("Buttons and main menu found.");
+                ModMenuPlugin.debugLogger.Log("Buttons and main menu found.");
                 AddModMenuButton();
-                Utils.Log("Mod menu button created");
+                ModMenuPlugin.debugLogger.Log("Mod menu button created");
             }
             catch (Exception ex)
             {
-                Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Exception(ex.StackTrace + ex.Message);
             }
         }
 
@@ -101,7 +101,7 @@ namespace BSModUI.UI
 
                 if (modMenuButton == null)
                 {
-                    Utils.Log("Mod menu button returned as null", Utils.Severity.Error);
+                    ModMenuPlugin.debugLogger.Exception("Mod menu button returned as null");
                     return;
                 }
 
@@ -110,13 +110,13 @@ namespace BSModUI.UI
                 {
                     try
                     {
-                        Utils.Log("Mod menu pressed");
+                        ModMenuPlugin.debugLogger.Log("Mod menu pressed");
                         if (_modMenuController == null)
                         {
                             _modMenuController = CreateViewController<ModMenuMasterViewController>();
                         }
                         _rightScreen.PresentModalViewController(_modMenuController, null);
-                        Utils.Log("Mod menu setup finished");
+                        ModMenuPlugin.debugLogger.Log("Mod menu setup finished");
                         //DELETE POSSIBLE DIFFICULTY TEXT
                         var modlisttemp = GameObject.FindObjectOfType<ModsListViewController>();
                         if (modlisttemp != null)
@@ -126,7 +126,7 @@ namespace BSModUI.UI
 
                             foreach (TextMeshProUGUI textmesh in textmeshs)
                             {
-                                Utils.Log(textmesh.rectTransform.parent.gameObject.name);
+                                ModMenuPlugin.debugLogger.Log(textmesh.rectTransform.parent.gameObject.name);
                                 if (textmesh.rectTransform.parent.name == "DifficultyTableCell(Clone)")
                                 {
                                     DestroyImmediate(textmesh.rectTransform.parent.gameObject);
@@ -136,14 +136,14 @@ namespace BSModUI.UI
                     }
                     catch (Exception ex)
                     {
-                        Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
+                        ModMenuPlugin.debugLogger.Exception(ex.StackTrace + ex.Message);
                     }
                 });
             }
 
             catch (Exception ex)
             {
-                Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Exception(ex.StackTrace + ex.Message);
             }
         }
 
@@ -165,7 +165,7 @@ namespace BSModUI.UI
             {
                 if (_cogWheelButtonInstance == null)
                 {
-                    Utils.Log("Failed to create button", Utils.Severity.Error);
+                    ModMenuPlugin.debugLogger.Exception("Failed to create button");
                     return null;
                 }
 
@@ -178,7 +178,7 @@ namespace BSModUI.UI
             }
             catch (Exception ex)
             {
-                Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Exception(ex.StackTrace + ex.Message);
                 return null;
             }
         }
@@ -189,7 +189,7 @@ namespace BSModUI.UI
                 var templateButton = Resources.FindObjectsOfTypeAll<Button>().First(x => x.name == templateButtonName);
                 if (templateButton == null)
                 {
-                    Utils.Log("Failed to create button from template, invalid name?", Utils.Severity.Error);
+                    ModMenuPlugin.debugLogger.Exception("Failed to create button from template, invalid name?");
                     return null;
                 }
 
@@ -202,7 +202,7 @@ namespace BSModUI.UI
             }
             catch (Exception ex)
             {
-                Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Exception(ex.StackTrace + ex.Message);
                 return null;
             }
         }
@@ -211,7 +211,7 @@ namespace BSModUI.UI
         {
             if (_downArrowBtn == null)
             {
-                Utils.Log("Failed to create back button", Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Error("Failed to create back button");
                 return null;
             }
 
@@ -226,7 +226,7 @@ namespace BSModUI.UI
         {
             if (_upArrowBtn == null)
             {
-                Utils.Log("Failed to create next button", Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Error("Failed to create next button");
                 return null;
             }
 
@@ -286,7 +286,7 @@ namespace BSModUI.UI
         {
             if (_upArrowBtn == null)
             {
-                Utils.Log("Failed to create next button", Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Error("Failed to create next button");
                 return null;
             }
 

@@ -82,7 +82,7 @@ namespace BSModUI.UI
 
                 PushViewController(ModsListViewController, true);
 
-                Utils.Log("View Controller activated");
+                ModMenuPlugin.debugLogger.Log("View Controller activated");
 
 
 
@@ -90,7 +90,7 @@ namespace BSModUI.UI
             }
             catch (Exception ex)
             {
-                Utils.Log(ex.StackTrace + ex.Message, Utils.Severity.Error);
+                ModMenuPlugin.debugLogger.Exception(ex.StackTrace + ex.Message);
             }
         }
 

@@ -51,5 +51,11 @@
     <Compile Include="SuddenDeath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BSModUI\BSModUI.csproj">
+      <Project>{66663f3a-4964-4b3d-aeb0-7e67823ffec0}</Project>
+      <Name>BSModUI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
