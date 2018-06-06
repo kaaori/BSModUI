@@ -34,20 +34,24 @@ namespace Hidden
 
         private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene scene)
         {
-
+            //if (scene.buildIndex > 1)
+            //{
+            //    HiddenMod.OnLoad();
+            //    Console.WriteLine("Level with song loaded");
+            //}
         }
 
         public void OnLevelWasLoaded(int level)
         {
-           
+            if (level > 1)
+            {
+                HiddenMod.OnLoad();
+                Console.WriteLine("Level with song loaded");
+            }
         }
 
         public void OnLevelWasInitialized(int level)
         {
-            if (level == 2)
-            {
-                HiddenMod.OnLoad();
-            }
         }
 
         public void OnUpdate()
