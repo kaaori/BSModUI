@@ -16,6 +16,14 @@ namespace Hidden
 
         }
 
+        public void OnLevelWasLoaded(int level) {
+            //
+        }
+
+        public void OnLevelWasInitialized(int level) {
+            //
+        }
+
         public string Name => "Hidden Plugin";
 
         public string Version => "0.0.1";
@@ -32,6 +40,7 @@ namespace Hidden
             SceneManager.activeSceneChanged -= SceneManagerOnActiveSceneChanged;
         }
 
+<<<<<<< HEAD
         private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene scene)
         {
             //if (scene.buildIndex > 1)
@@ -48,10 +57,31 @@ namespace Hidden
                 HiddenMod.OnLoad();
                 Console.WriteLine("Level with song loaded");
             }
+=======
+        //https://answers.unity.com/questions/1113318/applicationloadlevelapplicationloadedlevel-obsolet.html
+        //buildIndex == loadedLevel
+        public void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode) {
+            if (scene.buildIndex == 2)
+            {
+                HiddenMod.OnLoad();
+            }
         }
 
-        public void OnLevelWasInitialized(int level)
+        public void OnSceneUnloaded(Scene scene) {
+            //
+        }
+
+        public void OnActiveSceneChanged(Scene prevScene, Scene nextScene) {
+            
+>>>>>>> c23fec4175211ae0913996f00342624f74616c4c
+        }
+
+        private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene scene)
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> c23fec4175211ae0913996f00342624f74616c4c
         }
 
         public void OnUpdate()

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BSModUI;
+﻿
+
 using BSModUI.Interfaces;
-using VRUI;
+using IllusionPlugin;
+using UnityEngine.SceneManagement;
 
 namespace TestModWithUi
 {
@@ -19,12 +17,13 @@ namespace TestModWithUi
         {
         }
 
-        public void OnLevelWasLoaded(int level)
-        {
+        public void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode) {
         }
 
-        public void OnLevelWasInitialized(int level)
-        {
+        public void OnSceneUnloaded(Scene scene) {
+        }
+
+        public void OnActiveSceneChanged(Scene prevScene, Scene nextScene) {
         }
 
         public void OnUpdate()
@@ -36,6 +35,13 @@ namespace TestModWithUi
         }
         
         public void OnLateUpdate() {
+        }
+        
+        public void OnLevelWasLoaded(int level) {
+            
+        }
+        
+        public void OnLevelWasInitialized(int level) {
         }
 
         public string Name => "Beat Saber Mod Test";
